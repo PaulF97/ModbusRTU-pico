@@ -28,7 +28,7 @@ int main() {
     char frameReceived[MAX_LENGTH];
     char betterArray[MAX_LENGTH];
     char single;
-    int i, j =0;
+    int i_get, j =0;
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -43,14 +43,18 @@ int main() {
         
 
        
-        while ((single = getchar()) != '\n' && i < MAX_LENGTH) {
-            frameReceived[i] = single;
-            i++;
-            gpio_put(LED_PIN,1);
-        }
+        // while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
+        //     frameReceived[i_get] = single;
+        //     i_get++;
+        //     gpio_put(LED_PIN,1);
+        // }
+        // if(single == '\n' || single == '\0'){
+        //     i_get=0;
+        // }
 
-        frameReceived[i] = '\0';  // add null character to the end of the string
-        printf("frame received from the master (PC) : ");
+        fgets(frameReceived, MAX_LENGTH, stdin);
+       // frameReceived[i_get] = '\0';  // add null character to the end of the string
+      //  printf("frame received from the master (PC) : ");
         // delete all zéros from initial array : 23 initial
         for(int i = 0; i<MAX_LENGTH; i++){
             printf(" %02X", frameReceived[i]);
@@ -58,7 +62,7 @@ int main() {
 
         printf("\n");
  
-        decodeFrame(frameReceived, MAX_LENGTH, frameReceived[6]);
+        //decodeFrame(frameReceived, MAX_LENGTH, frameReceived[6]);
 
         gpio_put(LED_PIN,0);
 

@@ -28,7 +28,7 @@ int main() {
     char frameReceived[MAX_LENGTH];
     char betterArray[MAX_LENGTH];
     char single;
-    int i_get, j =0;
+    int i_get =0, j =0;
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -52,7 +52,11 @@ int main() {
         //     i_get=0;
         // }
 
-        fgets(frameReceived, MAX_LENGTH, stdin);
+        // frameReceived[i_get] = '\0';
+
+
+       fgets(frameReceived, MAX_LENGTH, stdin);
+
        // frameReceived[i_get] = '\0';  // add null character to the end of the string
       //  printf("frame received from the master (PC) : ");
         // delete all zéros from initial array : 23 initial

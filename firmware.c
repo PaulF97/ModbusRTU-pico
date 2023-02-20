@@ -28,7 +28,7 @@ int main() {
     char frameReceived[MAX_LENGTH];
     char betterArray[MAX_LENGTH];
     char single;
-    int i_get =0, j =0;
+    int i_get, j =0;
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -43,11 +43,11 @@ int main() {
         
 
        
-        // while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
-        //     frameReceived[i_get] = single;
-        //     i_get++;
-        //     gpio_put(LED_PIN,1);
-        // }
+        while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
+            frameReceived[i_get] = single;
+            i_get++;
+            gpio_put(LED_PIN,1);
+        }
         // if(single == '\n' || single == '\0'){
         //     i_get=0;
         // }

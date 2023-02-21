@@ -6,9 +6,11 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include "ligthmodbus/lightmodbus.h"
 #include <ctype.h> 
 #include "pico/stdlib.h"
+
+
 
 
 #define UART_ID uart1
@@ -16,6 +18,8 @@
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
 #define MAX_LENGTH 23
+
+
 
 // prototype functions
 void init(const uint led_used);
@@ -28,7 +32,7 @@ int main() {
     char frameReceived[MAX_LENGTH];
     char betterArray[MAX_LENGTH];
     char single;
-    int i_get, j =0, iteration = 0;
+    int i_get;
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -38,11 +42,14 @@ int main() {
 
     printf("begining of program..");
 
+    ModbusSlave slave;
+    ModbusErrorInfo error;
 
+    error = modbusSlaveInit(&slave, NULL, NULL, NULL, NULL, NULL);
+
+    
     while(true){
         
-
-       
         // while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
         //     frameReceived[i_get] = single;
         //     i_get++;
@@ -50,7 +57,10 @@ int main() {
         //     uart_puts(UART_ID, "LED on\n");
         // }
 
-       fgets(frameReceived, MAX_LENGTH, stdin);
+        // frameReceived[i_get] = '\0';
+
+        fgets(frameReceived, MAX_LENGTH, stdin);
+
         // if(single == '\n' || single == '\0'){
         //     i_get=0;
         // }
@@ -59,13 +69,11 @@ int main() {
        // printf(" test %s", frameReceived);
 
         for(int i = 0; i<MAX_LENGTH; i++){
-            if(frameReceived[i] != '\0' || frameReceived[i] != '\n'){
-                printf(" %02X", frameReceived[i]); 
-            }
+            printf(" %02X", frameReceived[i]); 
+        
         }
         printf("\n");
-       // sleep_ms(1000);
-       // decodeFrame(frameReceived, MAX_LENGTH, frameReceived[6]);
+
 
         gpio_put(LED_PIN,0);
     }

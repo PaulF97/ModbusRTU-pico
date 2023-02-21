@@ -191,6 +191,11 @@ CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_com
  generated/pico_base/pico/version.h
 CMakeFiles/firmware.dir/firmware.c.obj
  /home/vm/Documents/testClientServeur/firmware/firmware.c
+ /home/vm/Documents/testClientServeur/firmware/ligthmodbus/base.h
+ /home/vm/Documents/testClientServeur/firmware/ligthmodbus/lightmodbus.h
+ /home/vm/Documents/testClientServeur/firmware/ligthmodbus/slave.h
+ /home/vm/Documents/testClientServeur/firmware/ligthmodbus/slave_func.h
+ /home/vm/Documents/testClientServeur/firmware/ligthmodbus/slave_func.impl.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/boards/include/boards/pico.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico/assert.h

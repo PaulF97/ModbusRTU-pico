@@ -48,22 +48,18 @@ int main() {
             i_get++;
             gpio_put(LED_PIN,1);
         }
-        // if(single == '\n' || single == '\0'){
-        //     i_get=0;
-        // }
-
-        // frameReceived[i_get] = '\0';
-
-
-       fgets(frameReceived, MAX_LENGTH, stdin);
-
-       // frameReceived[i_get] = '\0';  // add null character to the end of the string
-      //  printf("frame received from the master (PC) : ");
-        // delete all zéros from initial array : 23 initial
-        for(int i = 0; i<MAX_LENGTH; i++){
-            printf(" %02X", frameReceived[i]);
+        if(single == '\n' || single == '\0'){
+            i_get=0;
         }
 
+        frameReceived[i_get] = '\0';
+
+        for(int i = 0; i<MAX_LENGTH; i++){
+            if(frameReceived[i] != '\0'){
+                printf(" %02X", frameReceived[i]);
+            }
+            
+        }
         printf("\n");
  
         //decodeFrame(frameReceived, MAX_LENGTH, frameReceived[6]);

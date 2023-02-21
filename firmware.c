@@ -28,7 +28,7 @@ int main() {
     char frameReceived[MAX_LENGTH];
     char betterArray[MAX_LENGTH];
     char single;
-    int i_get, j =0;
+    int i_get, j =0, iteration = 0;
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -43,47 +43,34 @@ int main() {
         
 
        
-        while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
-            frameReceived[i_get] = single;
-            i_get++;
-            gpio_put(LED_PIN,1);
-        }
-        if(single == '\n' || single == '\0'){
-            i_get=0;
-        }
+        // while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
+        //     frameReceived[i_get] = single;
+        //     i_get++;
+        //     gpio_put(LED_PIN,1);
+        //     uart_puts(UART_ID, "LED on\n");
+        // }
 
-        frameReceived[i_get] = '\0';
+       fgets(frameReceived, MAX_LENGTH, stdin);
+        // if(single == '\n' || single == '\0'){
+        //     i_get=0;
+        // }
+
+        // frameReceived[i_get] = '\0';
+       // printf(" test %s", frameReceived);
 
         for(int i = 0; i<MAX_LENGTH; i++){
-            if(frameReceived[i] != '\0'){
-                printf(" %02X", frameReceived[i]);
+            if(frameReceived[i] != '\0' || frameReceived[i] != '\n'){
+                printf(" %02X", frameReceived[i]); 
             }
-            
         }
         printf("\n");
- 
-        //decodeFrame(frameReceived, MAX_LENGTH, frameReceived[6]);
+       // sleep_ms(1000);
+       // decodeFrame(frameReceived, MAX_LENGTH, frameReceived[6]);
 
         gpio_put(LED_PIN,0);
-
-        // if(single == 't'){
-        //     gpio_put(LED_PIN,1);
-        //     // printf("data received\n");
-        //     uart_puts(UART_ID, "LED on\n"); // send to PC via /dev/ttyACM0
-        //     uart_puts(UART_ID, "debug : LED turned on!\n"); // send to PC via uart => /dev/ttyUSB0
-        // } else if(single == 'n'){
-        //     gpio_put(LED_PIN,0);
-        //     // printf("data received\n");
-        //     uart_puts(UART_ID, "LED off\n");
-        //     uart_puts(UART_ID, "debug : LED turned off!\n");
-        // } else{
-        //     printf("problem");
-        // }
-        
     }
       return 0;
 }
-
 void init(const uint led_used){
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);

@@ -6,11 +6,14 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "ligthmodbus/lightmodbus.h"
-#include <ctype.h> 
+#include <ctype.h>
 #include "pico/stdlib.h"
 
 
+#define LIGHTMODBUS_SLAVE_FULL
+#define LIGHTMODBUS_DEBUG
+#define LIGHTMODBUS_IMPL
+#include "liblightmodbus/include/lightmodbus/lightmodbus.h"
 
 
 #define UART_ID uart1
@@ -25,6 +28,11 @@
 void init(const uint led_used);
 void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
+ModbusError registerCallback(const ModbusSlave *slave,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
+ModbusError exceptionCallback(ModbusBuffer *buffer,uint16_t size, void *context);
+
+
+
 int main() {
 
     const uint LED_PIN = 25;
@@ -45,7 +53,8 @@ int main() {
     ModbusSlave slave;
     ModbusErrorInfo error;
 
-    error = modbusSlaveInit(&slave, NULL, NULL, NULL, NULL, NULL);
+    error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
+    assert(modbusIsOk(error) && "modbusSlaveInit() failed!");
 
     
     while(true){
@@ -89,6 +98,13 @@ void init(const uint led_used){
 
 }
 
+ModbusError registerCallback(const ModbusSlave *slave,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
+
+}
+
+ModbusError exceptionCallback(ModbusBuffer *buffer,uint16_t size, void *context){
+
+}
 
 
 /*

@@ -190,11 +190,19 @@ CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_com
 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj: generated/pico_base/pico/version.h
 
 CMakeFiles/firmware.dir/firmware.c.obj: ../firmware.c
-CMakeFiles/firmware.dir/firmware.c.obj: ../ligthmodbus/base.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../ligthmodbus/lightmodbus.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../ligthmodbus/slave.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../ligthmodbus/slave_func.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../ligthmodbus/slave_func.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/base.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/base.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/debug.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/debug.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/lightmodbus.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master_func.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master_func.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave_func.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave_func.impl.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/boards/include/boards/pico.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico/assert.h

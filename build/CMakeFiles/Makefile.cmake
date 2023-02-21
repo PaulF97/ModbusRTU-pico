@@ -14,6 +14,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "elf2uf2/tmp/ELF2UF2Build-cfgcmd.txt.in"
   "pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/tmp/PioasmBuild-cfgcmd.txt.in"
+  "../liblightmodbus/lightmodbusConfig.cmake"
   "../pico_sdk_import.cmake"
   "/home/vm/Documents/testClientServeur/pico-sdk/CMakeLists.txt"
   "/home/vm/Documents/testClientServeur/pico-sdk/cmake/Platform/PICO.cmake"

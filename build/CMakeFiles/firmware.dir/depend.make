@@ -195,10 +195,6 @@ CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/ba
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/debug.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/debug.impl.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/lightmodbus.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master.impl.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master_func.h
-CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/master_func.impl.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave.impl.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave_func.h

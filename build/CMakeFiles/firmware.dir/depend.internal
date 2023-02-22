@@ -196,10 +196,6 @@ CMakeFiles/firmware.dir/firmware.c.obj
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/debug.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/debug.impl.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/lightmodbus.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/master.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/master.impl.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/master_func.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/master_func.impl.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave.impl.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave_func.h

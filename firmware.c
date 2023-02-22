@@ -22,7 +22,13 @@
 #define UART_RX_PIN 5
 #define MAX_LENGTH 23
 
-
+typedef enum StateOfSlave
+{
+	STATE_IDLE,
+	STATE_RECEIVING,
+	STATE_WAITING,
+	STATE_WAITING_INVALID,
+} StateOfSlave;
 
 // prototype functions
 void init(const uint led_used);
@@ -41,6 +47,10 @@ int main() {
     char betterArray[MAX_LENGTH];
     char single;
     int i_get;
+    
+    ModbusSlave slave;
+    ModbusErrorInfo error;
+
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -50,12 +60,12 @@ int main() {
 
     printf("begining of program..");
 
-    ModbusSlave slave;
-    ModbusErrorInfo error;
+
 
     error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
     assert(modbusIsOk(error) && "modbusSlaveInit() failed!");
 
+    StateOfSlave state = STATE_IDLE;
     
     while(true){
         

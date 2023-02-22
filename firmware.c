@@ -34,9 +34,9 @@ typedef enum StateOfSlave
 void init(const uint led_used);
 void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
-ModbusError registerCallback(const ModbusSlave *slave,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
-ModbusError exceptionCallback(ModbusBuffer *buffer,uint16_t size, void *context);
-
+ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
+ModbusError exceptionCallback(const ModbusSlave *slaveID,  uint8_t function, ModbusExceptionCode code);
+void printErrorInfo(ModbusErrorInfo err);
 
 
 int main() {
@@ -47,7 +47,6 @@ int main() {
     char betterArray[MAX_LENGTH];
     char single;
     int i_get;
-    
     ModbusSlave slave;
     ModbusErrorInfo error;
 
@@ -69,32 +68,28 @@ int main() {
     
     while(true){
         
-        // while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
-        //     frameReceived[i_get] = single;
-        //     i_get++;
-        //     gpio_put(LED_PIN,1);
-        //     uart_puts(UART_ID, "LED on\n");
-        // }
+        while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
+            frameReceived[i_get] = single;
+            i_get++;
+            gpio_put(LED_PIN,1);
+            uart_puts(UART_ID, "LED on\n");
+        }
 
-        // frameReceived[i_get] = '\0';
+        frameReceived[i_get] = '\0';
 
-        fgets(frameReceived, MAX_LENGTH, stdin);
-
-        // if(single == '\n' || single == '\0'){
-        //     i_get=0;
-        // }
-
-        // frameReceived[i_get] = '\0';
-       // printf(" test %s", frameReceived);
+        // fgets(frameReceived, MAX_LENGTH, stdin);
 
         for(int i = 0; i<MAX_LENGTH; i++){
-            printf(" %02X", frameReceived[i]); 
-        
+            if(frameReceived[i] != '\n'){
+                printf(" %02X", frameReceived[i]); 
+            }
         }
         printf("\n");
-
-
         gpio_put(LED_PIN,0);
+
+        error = modbusParseRequestRTU(&slave, 0x01, frameReceived, MAX_LENGTH);
+        printErrorInfo(error);
+        printf("RTU response using the library : ");
     }
       return 0;
 }
@@ -108,14 +103,64 @@ void init(const uint led_used){
 
 }
 
-ModbusError registerCallback(const ModbusSlave *slave,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
+/*
+* goes in this callback when a frame is received
+*/
+ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
+	printf(
+		"Register query:\n"
+		"\tquery: %s\n"
+		"\t type: %s\n"
+		"\t   id: %d\n"
+		"\tvalue: %d\n"
+		"\t  fun: %d\n",
+		modbusRegisterQueryStr(args->query),
+		modbusDataTypeStr(args->type),
+		args->index,
+		args->value,
+		args->function
+	);
+
+	switch (args->query)
+	{
+		// Pretend to allow all access
+		case MODBUS_REGQ_R_CHECK:
+		case MODBUS_REGQ_W_CHECK:
+			result->exceptionCode = MODBUS_EXCEP_NONE;
+			break;
+
+		// Return 7 when reading
+		case MODBUS_REGQ_R:
+			result->value = 7;
+			break;
+		
+		default: break;
+	}
+
+	return MODBUS_OK;
+}
+
+/*
+* excecutes this function if there is a error in the frame
+*/
+ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
+	printf("Slave exception %s (function %d)\n", modbusExceptionCodeStr(code), function);
+	return MODBUS_OK;
 
 }
 
-ModbusError exceptionCallback(ModbusBuffer *buffer,uint16_t size, void *context){
-
+/*
+* check if modbus is initialized
+*/
+void printErrorInfo(ModbusErrorInfo err)
+{
+	if (modbusIsOk(err))
+		printf("OK\n");
+	else
+		printf("%s: %s",
+			modbusErrorSourceStr(modbusGetErrorSource(err)),
+			modbusErrorStr(modbusGetErrorCode(err)));
 }
-
 
 /*
 * https://rapidscada.net/modbus/

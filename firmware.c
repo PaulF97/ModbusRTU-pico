@@ -15,6 +15,9 @@
 #define LIGHTMODBUS_IMPL
 #include "liblightmodbus/include/lightmodbus/lightmodbus.h"
 
+#ifndef REG_COUNT
+#define REG_COUNT 16
+#endif
 
 #define UART_ID uart1
 #define BAUDRATE 9600
@@ -30,12 +33,19 @@ typedef enum StateOfSlave
 	STATE_WAITING_INVALID,
 } StateOfSlave;
 
+uint8_t coils[REG_COUNT / 8];
+uint16_t regs[REG_COUNT];
+
 // prototype functions
 void init(const uint led_used);
 void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
 void printErrorInfo(ModbusErrorInfo err);
+void printFrameResponse(const ModbusSlave *slave);
+
+
+
 
 int main() {
 
@@ -75,10 +85,15 @@ int main() {
 
         frameReceived[i_get] = '\0';
 
+        if(frameReceived[i_get] == '\0' || frameReceived[i_get] =='\n'){
+            i_get=0;
+        }
+        sleep_ms(1000);
+
         // fgets(frameReceived, MAX_LENGTH, stdin);
 
         for(int i = 0; i<MAX_LENGTH; i++){
-            if(frameReceived[i] != '\n'){
+            if(frameReceived[i_get] != '\0' || frameReceived[i_get] != '\n'){
                 printf(" %02X", frameReceived[i]); 
             }
         }
@@ -87,7 +102,10 @@ int main() {
 
         error = modbusParseRequestRTU(&slave, 0x01, frameReceived, MAX_LENGTH);
         printErrorInfo(error);
-        printf("RTU response using the library : ");
+        printf("RTU response : ");
+        printFrameResponse(&slave);
+        printf("\n");
+
     }
       return 0;
 }
@@ -99,6 +117,14 @@ void init(const uint led_used){
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
+}
+
+
+void printFrameResponse(const ModbusSlave *slave){
+
+	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
+        printf("0x%02x ", modbusSlaveGetResponse(slave)[i]);
+    }
 }
 
 /*
@@ -121,15 +147,40 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 
 	switch (args->query)
 	{
-		// Pretend to allow all access
+
 		case MODBUS_REGQ_R_CHECK:
+			if (args->index < REG_COUNT)
+				result->exceptionCode = MODBUS_EXCEP_NONE;
+			else	
+				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
+			break;
+			
+		
 		case MODBUS_REGQ_W_CHECK:
-			result->exceptionCode = MODBUS_EXCEP_NONE;
+			if (args->index < REG_COUNT - 2)
+				result->exceptionCode = MODBUS_EXCEP_NONE;
+			else	
+				result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
 			break;
 
-		// Return 7 when reading
 		case MODBUS_REGQ_R:
-			result->value = 7;
+			switch (args->type)
+			{
+				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
+				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
+				case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
+				case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
+			}
+			break;
+
+
+		case MODBUS_REGQ_W:
+			switch (args->type)
+			{
+				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
+				case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
+				default: abort(); break;
+			}
 			break;
 		
 		default: break;
@@ -143,12 +194,15 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 */
 void printErrorInfo(ModbusErrorInfo err)
 {
-	if (modbusIsOk(err))
-		printf("OK\n");
-	else
-		printf("%s: %s",
+	if (modbusIsOk(err)){
+		printf("FRAME IS CORRECT\n");
+    }else{
+        printf("THERE IS A PROBLEM WITH THE FRAME\n");
+		printf("%s: it comes from the following element : %s",
 			modbusErrorSourceStr(modbusGetErrorSource(err)),
 			modbusErrorStr(modbusGetErrorCode(err)));
+            
+    }
 }
 
 /*

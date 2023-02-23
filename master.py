@@ -20,6 +20,8 @@ while True:
     print("before write")
     sending = master.write_registers(5, "bonjour".encode(), 0x01)
     time.sleep(1)
+    # //receive = master.read_holding_registers(5,8, 0x01)
+    # time.sleep(1)
     # print("after write") 
     # send2 = master.write_registers(5, "paulfishe".encode(), 0x01)
     # receive = master.read_holding_registers(5, 5, 0x01)       

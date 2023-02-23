@@ -74,30 +74,40 @@ int main() {
 
     StateOfSlave state = STATE_IDLE;
     
-    while(true){
-        
+    while(1){
+        memset(frameReceived, i_get, sizeof(frameReceived));
+        i_get=0;
         while ((single = getchar()) != '\n' && i_get < MAX_LENGTH) {
             frameReceived[i_get] = single;
             i_get++;
             gpio_put(LED_PIN,1);
             uart_puts(UART_ID, "LED on\n");
         }
-
+        uart_puts(UART_ID, "outside while\n");
         frameReceived[i_get] = '\0';
 
-        if(frameReceived[i_get] == '\0' || frameReceived[i_get] =='\n'){
-            i_get=0;
-        }
+        // if(frameReceived[i_get] == '\0' || frameReceived[i_get] =='\n'){
+        //     uart_puts(UART_ID, "reset i_get\n");
+        //     i_get=0;
+        // }
+
         sleep_ms(1000);
 
         // fgets(frameReceived, MAX_LENGTH, stdin);
 
-        for(int i = 0; i<MAX_LENGTH; i++){
-            if(frameReceived[i_get] != '\0' || frameReceived[i_get] != '\n'){
+        // printf frame
+        for(int i = 0; i<i_get; i++){
+            if(frameReceived[i_get] != '\0' || frameReceived[i] != '\n'){
                 printf(" %02X", frameReceived[i]); 
             }
         }
+
         printf("\n");
+        // print data
+        for(int i = 7; i<i_get-2; i++){
+            printf(" %0c", frameReceived[i]);
+        }
+        printf("\n"); 
         gpio_put(LED_PIN,0);
 
         error = modbusParseRequestRTU(&slave, 0x01, frameReceived, MAX_LENGTH);
@@ -136,7 +146,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 		"\tquery: %s\n"
 		"\t type: %s\n"
 		"\t   id: %d\n"
-		"\tvalue: %d\n"
+		"\tvalue: %c\n"
 		"\t  fun: %d\n",
 		modbusRegisterQueryStr(args->query),
 		modbusDataTypeStr(args->type),
@@ -182,10 +192,8 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 				default: abort(); break;
 			}
 			break;
-		
 		default: break;
 	}
-
 	return MODBUS_OK;
 }
 
@@ -201,7 +209,6 @@ void printErrorInfo(ModbusErrorInfo err)
 		printf("%s: it comes from the following element : %s",
 			modbusErrorSourceStr(modbusGetErrorSource(err)),
 			modbusErrorStr(modbusGetErrorCode(err)));
-            
     }
 }
 

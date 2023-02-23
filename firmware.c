@@ -23,7 +23,7 @@
 #define BAUDRATE 9600
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
-#define MAX_LENGTH_W 23
+#define MAX_LENGTH_W 8
 
 
 typedef enum StateOfSlave

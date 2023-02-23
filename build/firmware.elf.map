@@ -193,10 +193,8 @@ Discarded input sections
  .text.modbusRegisterQueryStr
                 0x0000000000000000       0x18 CMakeFiles/firmware.dir/firmware.c.obj
  .text.init     0x0000000000000000       0x38 CMakeFiles/firmware.dir/firmware.c.obj
- .text.printFrameResponse
-                0x0000000000000000       0x28 CMakeFiles/firmware.dir/firmware.c.obj
- .text.printErrorInfo
-                0x0000000000000000       0x54 CMakeFiles/firmware.dir/firmware.c.obj
+ .text.printAndSendFrameResponse
+                0x0000000000000000       0x3c CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.decodeFrame.str1.4
                 0x0000000000000000      0x142 CMakeFiles/firmware.dir/firmware.c.obj
  .text.decodeFrame
@@ -205,7 +203,7 @@ Discarded input sections
                 0x0000000000000000       0x27 CMakeFiles/firmware.dir/firmware.c.obj
  .text.hexToASCII
                 0x0000000000000000       0x58 CMakeFiles/firmware.dir/firmware.c.obj
- .rodata.CSWTCH.130
+ .rodata.CSWTCH.132
                 0x0000000000000000       0x20 CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.modbusSlaveDefaultFunctionCount
                 0x0000000000000000        0x1 CMakeFiles/firmware.dir/firmware.c.obj
@@ -610,10 +608,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .data          0x0000000000000000        0x0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .bss           0x0000000000000000        0x0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .text._out_buffer
-                0x0000000000000000        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .text.__wrap_sprintf
-                0x0000000000000000       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text.__wrap_snprintf
                 0x0000000000000000       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text.__wrap_vsnprintf
@@ -1277,9 +1271,9 @@ Discarded input sections
  .comment       0x0000000000000000       0x5a CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj
  .ARM.attributes
                 0x0000000000000000       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj
- .text          0x0000000000000000        0x0 /tmp/ccVVhQyc.o
- .data          0x0000000000000000        0x0 /tmp/ccVVhQyc.o
- .bss           0x0000000000000000        0x0 /tmp/ccVVhQyc.o
+ .text          0x0000000000000000        0x0 /tmp/ccC6vtHx.o
+ .data          0x0000000000000000        0x0 /tmp/ccC6vtHx.o
+ .bss           0x0000000000000000        0x0 /tmp/ccC6vtHx.o
  .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .bss           0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .data          0x0000000000000000        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-abort.o)
@@ -1959,11 +1953,11 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
 .boot2          0x0000000010000000      0x100
                 0x0000000010000000                __boot2_start__ = .
  *(.boot2)
- .boot2         0x0000000010000000      0x100 /tmp/ccVVhQyc.o
+ .boot2         0x0000000010000000      0x100 /tmp/ccC6vtHx.o
                 0x0000000010000100                __boot2_end__ = .
                 0x0000000000000001                ASSERT (((__boot2_end__ - __boot2_start__) == 0x100), ERROR: Pico second stage bootloader must be 256 bytes in size)
 
-.text           0x0000000010000100     0x87d8
+.text           0x0000000010000100     0x8ac8
                 0x0000000010000100                __logical_binary_start = .
  *(.vectors)
  .vectors       0x0000000010000100       0xd4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
@@ -2045,639 +2039,648 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
  .text.modbusParseRequest22
                 0x0000000010000a30      0x150 CMakeFiles/firmware.dir/firmware.c.obj
                 0x0000000010000a30                modbusParseRequest22
+ .text.printErrorInfo
+                0x0000000010000b80       0xfc CMakeFiles/firmware.dir/firmware.c.obj
+                0x0000000010000b80                printErrorInfo
  .text.startup.main
-                0x0000000010000b80      0x454 CMakeFiles/firmware.dir/firmware.c.obj
-                0x0000000010000b80                main
+                0x0000000010000c7c      0x614 CMakeFiles/firmware.dir/firmware.c.obj
+                0x0000000010000c7c                main
  .text.gpio_set_function
-                0x0000000010000fd4       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
-                0x0000000010000fd4                gpio_set_function
+                0x0000000010001290       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
+                0x0000000010001290                gpio_set_function
  .text.gpio_init
-                0x0000000010001004       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
-                0x0000000010001004                gpio_init
+                0x00000000100012c0       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
+                0x00000000100012c0                gpio_init
  .text.running_on_fpga
-                0x0000000010001040       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
-                0x0000000010001040                running_on_fpga
+                0x00000000100012fc       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
+                0x00000000100012fc                running_on_fpga
  .text.hw_claim_or_assert
-                0x0000000010001050       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
-                0x0000000010001050                hw_claim_or_assert
+                0x000000001000130c       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+                0x000000001000130c                hw_claim_or_assert
  .text.hw_claim_unused_from_range
-                0x0000000010001098       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
-                0x0000000010001098                hw_claim_unused_from_range
+                0x0000000010001354       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj
+                0x0000000010001354                hw_claim_unused_from_range
  .text.spin_locks_reset
-                0x0000000010001134       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
-                0x0000000010001134                spin_locks_reset
+                0x00000000100013f0       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+                0x00000000100013f0                spin_locks_reset
  .text.next_striped_spin_lock_num
-                0x0000000010001150       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
-                0x0000000010001150                next_striped_spin_lock_num
+                0x000000001000140c       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+                0x000000001000140c                next_striped_spin_lock_num
  .text.spin_lock_claim_unused
-                0x0000000010001168       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
-                0x0000000010001168                spin_lock_claim_unused
+                0x0000000010001424       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+                0x0000000010001424                spin_lock_claim_unused
  .text.irq_set_enabled
-                0x0000000010001188       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x0000000010001188                irq_set_enabled
+                0x0000000010001444       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010001444                irq_set_enabled
  .text.irq_set_pending
-                0x00000000100011ac       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100011ac                irq_set_pending
+                0x0000000010001468       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010001468                irq_set_pending
  .text.irq_has_shared_handler
-                0x00000000100011bc       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100011bc                irq_has_shared_handler
+                0x0000000010001478       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010001478                irq_has_shared_handler
  .text.irq_get_vtable_handler
-                0x00000000100011e8       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100011e8                irq_get_vtable_handler
+                0x00000000100014a4       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x00000000100014a4                irq_get_vtable_handler
  .text.irq_set_exclusive_handler
-                0x00000000100011f8       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100011f8                irq_set_exclusive_handler
+                0x00000000100014b4       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x00000000100014b4                irq_set_exclusive_handler
  .text.irq_add_shared_handler
-                0x000000001000124c      0x1c0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x000000001000124c                irq_add_shared_handler
+                0x0000000010001508      0x1c0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010001508                irq_add_shared_handler
  .text.irq_remove_handler
-                0x000000001000140c      0x1b4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x000000001000140c                irq_remove_handler
+                0x00000000100016c8      0x1b4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x00000000100016c8                irq_remove_handler
  .text.irq_add_tail_to_free_list
-                0x00000000100015c0       0xb4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x00000000100015c0                irq_add_tail_to_free_list
+                0x000000001000187c       0xb4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x000000001000187c                irq_add_tail_to_free_list
  .text.irq_init_priorities
-                0x0000000010001674       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x0000000010001674                irq_init_priorities
+                0x0000000010001930       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010001930                irq_init_priorities
  .text.user_irq_claim_unused
-                0x0000000010001698       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
-                0x0000000010001698                user_irq_claim_unused
+                0x0000000010001954       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+                0x0000000010001954                user_irq_claim_unused
  .text.lock_init
-                0x00000000100016c0       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/lock_core.c.obj
-                0x00000000100016c0                lock_init
+                0x000000001000197c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/lock_core.c.obj
+                0x000000001000197c                lock_init
  .text.mutex_init
-                0x00000000100016d0       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/mutex.c.obj
-                0x00000000100016d0                mutex_init
+                0x000000001000198c       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/mutex.c.obj
+                0x000000001000198c                mutex_init
  .text.recursive_mutex_init
-                0x00000000100016ec       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/mutex.c.obj
-                0x00000000100016ec                recursive_mutex_init
+                0x00000000100019a8       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/mutex.c.obj
+                0x00000000100019a8                recursive_mutex_init
  .text.critical_section_init
-                0x0000000010001708       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/critical_section.c.obj
-                0x0000000010001708                critical_section_init
+                0x00000000100019c4       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/critical_section.c.obj
+                0x00000000100019c4                critical_section_init
  .text.critical_section_init_with_lock_num
-                0x0000000010001724       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/critical_section.c.obj
-                0x0000000010001724                critical_section_init_with_lock_num
+                0x00000000100019e0       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_sync/critical_section.c.obj
+                0x00000000100019e0                critical_section_init_with_lock_num
  .text.timer_pool_entry_comparator
-                0x0000000010001738       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001738                timer_pool_entry_comparator
+                0x00000000100019f4       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x00000000100019f4                timer_pool_entry_comparator
  .text.sleep_until_callback
-                0x000000001000176c       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001a28       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
  .text.add_alarm_under_lock
-                0x000000001000179c      0x108 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001a58      0x108 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
  .text.alarm_pool_alarm_callback
-                0x00000000100018a4      0x1b8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001b60      0x1b8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
  .text.alarm_pool_init_default
-                0x0000000010001a5c       0x6c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001a5c                alarm_pool_init_default
+                0x0000000010001d18       0x6c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001d18                alarm_pool_init_default
  .text.alarm_pool_get_default
-                0x0000000010001ac8        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001ac8                alarm_pool_get_default
+                0x0000000010001d84        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001d84                alarm_pool_get_default
  .text.alarm_pool_add_alarm_at
-                0x0000000010001ad0      0x190 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001ad0                alarm_pool_add_alarm_at
+                0x0000000010001d8c      0x190 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001d8c                alarm_pool_add_alarm_at
  .text.alarm_pool_cancel_alarm
-                0x0000000010001c60       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001c60                alarm_pool_cancel_alarm
+                0x0000000010001f1c       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001f1c                alarm_pool_cancel_alarm
  .text.alarm_pool_core_num
-                0x0000000010001cd0        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001cd0                alarm_pool_core_num
+                0x0000000010001f8c        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001f8c                alarm_pool_core_num
  .text.sleep_until
-                0x0000000010001cd4       0xc4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001cd4                sleep_until
+                0x0000000010001f90       0xc4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010001f90                sleep_until
  .text.sleep_ms
-                0x0000000010001d98       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001d98                sleep_ms
+                0x0000000010002054       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010002054                sleep_ms
  .text.best_effort_wfe_or_timeout
-                0x0000000010001dcc       0x60 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010001dcc                best_effort_wfe_or_timeout
+                0x0000000010002088       0x60 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010002088                best_effort_wfe_or_timeout
  .text.hardware_alarm_irq_handler
-                0x0000000010001e2c       0xbc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100020e8       0xbc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
  .text.hardware_alarm_claim
-                0x0000000010001ee8       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010001ee8                hardware_alarm_claim
+                0x00000000100021a4       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100021a4                hardware_alarm_claim
  .text.time_us_64
-                0x0000000010001f00       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010001f00                time_us_64
+                0x00000000100021bc       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100021bc                time_us_64
  .text.busy_wait_us
-                0x0000000010001f14       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010001f14                busy_wait_us
+                0x00000000100021d0       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100021d0                busy_wait_us
  .text.busy_wait_until
-                0x0000000010001f68       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010001f68                busy_wait_until
+                0x0000000010002224       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002224                busy_wait_until
  .text.hardware_alarm_set_callback
-                0x0000000010001f88       0x8c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010001f88                hardware_alarm_set_callback
+                0x0000000010002244       0x8c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x0000000010002244                hardware_alarm_set_callback
  .text.hardware_alarm_set_target
-                0x0000000010002014       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x0000000010002014                hardware_alarm_set_target
+                0x00000000100022d0       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100022d0                hardware_alarm_set_target
  .text.hardware_alarm_cancel
-                0x00000000100020f8       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
-                0x00000000100020f8                hardware_alarm_cancel
+                0x00000000100023b4       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+                0x00000000100023b4                hardware_alarm_cancel
  .text.ph_merge_nodes
-                0x0000000010002138       0x68 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x00000000100023f4       0x68 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
  .text.ph_post_alloc_init
-                0x00000000100021a0       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x00000000100021a0                ph_post_alloc_init
+                0x000000001000245c       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x000000001000245c                ph_post_alloc_init
  .text.ph_merge_two_pass
-                0x00000000100021dc       0x90 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x00000000100021dc                ph_merge_two_pass
+                0x0000000010002498       0x90 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x0000000010002498                ph_merge_two_pass
  .text.ph_remove_any_head
-                0x000000001000226c      0x100 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x0000000010002528      0x100 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
  .text.ph_remove_head
-                0x000000001000236c      0x144 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x000000001000236c                ph_remove_head
+                0x0000000010002628      0x144 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x0000000010002628                ph_remove_head
  .text.ph_remove_and_free_node
-                0x00000000100024b0       0x7c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
-                0x00000000100024b0                ph_remove_and_free_node
+                0x000000001000276c       0x7c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_util/pheap.c.obj
+                0x000000001000276c                ph_remove_and_free_node
  .text.uart_init
-                0x000000001000252c       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj
-                0x000000001000252c                uart_init
+                0x00000000100027e8       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj
+                0x00000000100027e8                uart_init
  .text.clocks_init
-                0x0000000010002610      0x2bc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
-                0x0000000010002610                clocks_init
+                0x00000000100028cc      0x2bc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+                0x00000000100028cc                clocks_init
  .text.clock_get_hz
-                0x00000000100028cc        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
-                0x00000000100028cc                clock_get_hz
+                0x0000000010002b88        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj
+                0x0000000010002b88                clock_get_hz
  .text.pll_init
-                0x00000000100028d8       0xa8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
-                0x00000000100028d8                pll_init
+                0x0000000010002b94       0xa8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj
+                0x0000000010002b94                pll_init
  .text.watchdog_start_tick
-                0x0000000010002980       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
-                0x0000000010002980                watchdog_start_tick
+                0x0000000010002c3c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
+                0x0000000010002c3c                watchdog_start_tick
  .text.watchdog_reboot
-                0x0000000010002990       0x98 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
-                0x0000000010002990                watchdog_reboot
+                0x0000000010002c4c       0x98 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj
+                0x0000000010002c4c                watchdog_reboot
  .text.xosc_init
-                0x0000000010002a28       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
-                0x0000000010002a28                xosc_init
+                0x0000000010002ce4       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj
+                0x0000000010002ce4                xosc_init
  .text.runtime_init
-                0x0000000010002a50       0xf0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002a50                runtime_init
- .text._exit    0x0000000010002b40        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b40                _exit
- .text._sbrk    0x0000000010002b44       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b44                _sbrk
- .text._getpid  0x0000000010002b78        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b78                _getpid
- .text._kill    0x0000000010002b7c        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b7c                _kill
- .text.exit     0x0000000010002b84        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b84                exit
- .text.panic    0x0000000010002b8c       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002b8c                panic
+                0x0000000010002d0c       0xf0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002d0c                runtime_init
+ .text._exit    0x0000000010002dfc        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002dfc                _exit
+ .text._sbrk    0x0000000010002e00       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002e00                _sbrk
+ .text._getpid  0x0000000010002e34        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002e34                _getpid
+ .text._kill    0x0000000010002e38        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002e38                _kill
+ .text.exit     0x0000000010002e40        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002e40                exit
+ .text.panic    0x0000000010002e48       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002e48                panic
  .text.hard_assertion_failure
-                0x0000000010002bbc        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
-                0x0000000010002bbc                hard_assertion_failure
+                0x0000000010002e78        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010002e78                hard_assertion_failure
+ .text._out_buffer
+                0x0000000010002e84        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_null
-                0x0000000010002bc8        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010002e8c        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_rev
-                0x0000000010002bcc       0xd0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010002e90       0xd0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._ntoa_format
-                0x0000000010002c9c      0x1d0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010002f60      0x1d0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_char
-                0x0000000010002e6c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010003130       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._out_fct
-                0x0000000010002e7c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .text._etoa    0x0000000010002e8c      0x478 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- .text._ftoa    0x0000000010003304      0x3e0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010003140       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .text._etoa    0x0000000010003150      0x478 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .text._ftoa    0x00000000100035c8      0x3e0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .text._vsnprintf
-                0x00000000100036e4      0xb08 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x00000000100039a8      0xb08 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ .text.__wrap_sprintf
+                0x00000000100044b0       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x00000000100044b0                __wrap_sprintf
  .text.vfctprintf
-                0x00000000100041ec       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
-                0x00000000100041ec                vfctprintf
+                0x00000000100044d8       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x00000000100044d8                vfctprintf
  .text.weak_raw_vprintf
-                0x000000001000420c       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
-                0x000000001000420c                weak_raw_vprintf
- .text          0x000000001000423c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
+                0x00000000100044f8       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x00000000100044f8                weak_raw_vprintf
+ .text          0x0000000010004528       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj
  .text.rom_func_lookup
-                0x000000001000424c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
-                0x000000001000424c                rom_func_lookup
+                0x0000000010004538       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+                0x0000000010004538                rom_func_lookup
  .text.rom_data_lookup
-                0x000000001000425c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
-                0x000000001000425c                rom_data_lookup
+                0x0000000010004548       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+                0x0000000010004548                rom_data_lookup
  .text.rom_funcs_lookup
-                0x000000001000426c       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
-                0x000000001000426c                rom_funcs_lookup
+                0x0000000010004558       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj
+                0x0000000010004558                rom_funcs_lookup
  .text.__wrap___aeabi_idiv
-                0x00000000100042a8       0x50 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
-                0x00000000100042a8                __wrap___aeabi_idivmod
-                0x00000000100042a8                divmod_s32s32
-                0x00000000100042a8                div_s32s32
-                0x00000000100042a8                __wrap___aeabi_idiv
-                0x00000000100042b0                divmod_s32s32_unsafe
-                0x00000000100042dc                divmod_s32s32_savestate
+                0x0000000010004594       0x50 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+                0x0000000010004594                __wrap___aeabi_idivmod
+                0x0000000010004594                divmod_s32s32
+                0x0000000010004594                div_s32s32
+                0x0000000010004594                __wrap___aeabi_idiv
+                0x000000001000459c                divmod_s32s32_unsafe
+                0x00000000100045c8                divmod_s32s32_savestate
  .text.__wrap___aeabi_uidiv
-                0x00000000100042f8       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
-                0x00000000100042f8                __wrap___aeabi_uidiv
-                0x00000000100042f8                __wrap___aeabi_uidivmod
-                0x00000000100042f8                div_u32u32
-                0x00000000100042f8                divmod_u32u32
-                0x0000000010004300                divmod_u32u32_unsafe
-                0x0000000010004328                divmod_u32u32_savestate
+                0x00000000100045e4       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+                0x00000000100045e4                __wrap___aeabi_uidiv
+                0x00000000100045e4                __wrap___aeabi_uidivmod
+                0x00000000100045e4                div_u32u32
+                0x00000000100045e4                divmod_u32u32
+                0x00000000100045ec                divmod_u32u32_unsafe
+                0x0000000010004614                divmod_u32u32_savestate
  .text.__wrap___aeabi_ldiv
-                0x0000000010004344      0x424 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
-                0x0000000010004344                div_s64s64
-                0x0000000010004344                divmod_s64s64
-                0x0000000010004344                __wrap___aeabi_ldivmod
-                0x0000000010004374                div_u64u64
-                0x0000000010004374                divmod_u64u64
-                0x0000000010004374                __wrap___aeabi_uldivmod
-                0x0000000010004384                divmod_u64u64_savestate
-                0x00000000100043a4                divmod_s64s64_unsafe
-                0x000000001000442c                divmod_u64u64_unsafe
+                0x0000000010004630      0x424 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_divider/divider.S.obj
+                0x0000000010004630                div_s64s64
+                0x0000000010004630                divmod_s64s64
+                0x0000000010004630                __wrap___aeabi_ldivmod
+                0x0000000010004660                div_u64u64
+                0x0000000010004660                divmod_u64u64
+                0x0000000010004660                __wrap___aeabi_uldivmod
+                0x0000000010004670                divmod_u64u64_savestate
+                0x0000000010004690                divmod_s64s64_unsafe
+                0x0000000010004718                divmod_u64u64_unsafe
  .text.__wrap___aeabi_darithmetic
-                0x0000000010004768       0x80 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010004768                __wrap___aeabi_drsub
-                0x000000001000476e                __wrap___aeabi_dsub
-                0x0000000010004780                __wrap___aeabi_dadd
-                0x0000000010004792                __wrap___aeabi_ddiv
-                0x00000000100047ce                __wrap___aeabi_dmul
+                0x0000000010004a54       0x80 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004a54                __wrap___aeabi_drsub
+                0x0000000010004a5a                __wrap___aeabi_dsub
+                0x0000000010004a6c                __wrap___aeabi_dadd
+                0x0000000010004a7e                __wrap___aeabi_ddiv
+                0x0000000010004aba                __wrap___aeabi_dmul
  .text.__wrap___aeabi_cdcmple
-                0x00000000100047e8       0x6c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100047e8                __wrap___aeabi_cdrcmple
-                0x00000000100047f8                __wrap___aeabi_cdcmple
-                0x00000000100047f8                __wrap___aeabi_cdcmpeq
+                0x0000000010004ad4       0x6c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004ad4                __wrap___aeabi_cdrcmple
+                0x0000000010004ae4                __wrap___aeabi_cdcmple
+                0x0000000010004ae4                __wrap___aeabi_cdcmpeq
  .text.__wrap___aeabi_dcmplt
-                0x0000000010004854        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010004854                __wrap___aeabi_dcmplt
+                0x0000000010004b40        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004b40                __wrap___aeabi_dcmplt
  .text.__wrap___aeabi_dcmple
-                0x0000000010004860       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010004860                __wrap___aeabi_dcmple
+                0x0000000010004b4c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004b4c                __wrap___aeabi_dcmple
  .text.__wrap___aeabi_dcmpge
-                0x0000000010004870       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010004870                __wrap___aeabi_dcmpge
+                0x0000000010004b5c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004b5c                __wrap___aeabi_dcmpge
  .text.__wrap___aeabi_dcmpgt
-                0x0000000010004880        0xa CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010004880                __wrap___aeabi_dcmpgt
+                0x0000000010004b6c        0xa CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004b6c                __wrap___aeabi_dcmpgt
  .text.__wrap___aeabi_dcmpun
-                0x000000001000488a       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x000000001000488a                __wrap___aeabi_dcmpun
- *fill*         0x00000000100048a6        0x2 
+                0x0000000010004b76       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004b76                __wrap___aeabi_dcmpun
+ *fill*         0x0000000010004b92        0x2 
  .text.__wrap___aeabi_i2d
-                0x00000000100048a8       0x38 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100048a8                __wrap___aeabi_ui2d
-                0x00000000100048b0                __wrap___aeabi_i2d
+                0x0000000010004b94       0x38 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004b94                __wrap___aeabi_ui2d
+                0x0000000010004b9c                __wrap___aeabi_i2d
  .text.__wrap___aeabi_d2iz
-                0x00000000100048e0       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x00000000100048e0                __wrap___aeabi_d2iz
-                0x00000000100048e0                double2int_z
+                0x0000000010004bcc       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004bcc                __wrap___aeabi_d2iz
+                0x0000000010004bcc                double2int_z
  .text.__wrap___aeabi_d2uiz
-                0x0000000010004928       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
-                0x0000000010004928                double2uint
-                0x0000000010004928                __wrap___aeabi_d2uiz
+                0x0000000010004c14       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj
+                0x0000000010004c14                double2uint
+                0x0000000010004c14                __wrap___aeabi_d2uiz
  .text.__aeabi_double_init
-                0x0000000010004940       0xc0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
-                0x0000000010004940                __aeabi_double_init
+                0x0000000010004c2c       0xc0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj
+                0x0000000010004c2c                __aeabi_double_init
  .text.double_table_shim_on_use_helper
-                0x0000000010004a00       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004a00                double_table_shim_on_use_helper
+                0x0000000010004cec       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010004cec                double_table_shim_on_use_helper
  .text.__wrap___aeabi_dsub
-                0x0000000010004a2c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004a2c                drsub_shim
-                0x0000000010004a32                dsub_shim
+                0x0000000010004d18       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010004d18                drsub_shim
+                0x0000000010004d1e                dsub_shim
  .text.dadd_shim
-                0x0000000010004a3c      0x15c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004a3c                dadd_shim
+                0x0000000010004d28      0x15c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010004d28                dadd_shim
  .text.dmul_shim
-                0x0000000010004b98      0x15c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004b98                dmul_shim
+                0x0000000010004e84      0x15c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010004e84                dmul_shim
  .text.ddiv_shim
-                0x0000000010004cf4      0x1b0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004cf4                ddiv_shim
+                0x0000000010004fe0      0x1b0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010004fe0                ddiv_shim
  .text.double2uint_shim
-                0x0000000010004ea4        0xe CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004ea4                double2uint_shim
-                0x0000000010004ea6                double2ufix_shim
- *fill*         0x0000000010004eb2        0x2 
+                0x0000000010005190        0xe CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005190                double2uint_shim
+                0x0000000010005192                double2ufix_shim
+ *fill*         0x000000001000519e        0x2 
  .text.double2uint64_shim
-                0x0000000010004eb4       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004eb4                double2uint64_shim
-                0x0000000010004eb6                double2ufix64_shim
-                0x0000000010004ed6                d2fix_a
+                0x00000000100051a0       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x00000000100051a0                double2uint64_shim
+                0x00000000100051a2                double2ufix64_shim
+                0x00000000100051c2                d2fix_a
  .text.dunpacks
-                0x0000000010004f24       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
-                0x0000000010004f24                dunpacks
+                0x0000000010005210       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj
+                0x0000000010005210                dunpacks
  .text.__aeabi_lmul
-                0x0000000010004f60       0x32 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
-                0x0000000010004f60                __wrap___aeabi_lmul
- *fill*         0x0000000010004f92        0x2 
+                0x000000001000524c       0x32 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj
+                0x000000001000524c                __wrap___aeabi_lmul
+ *fill*         0x000000001000527e        0x2 
  .text.__aeabi_float_init
-                0x0000000010004f94       0x64 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
-                0x0000000010004f94                __aeabi_float_init
+                0x0000000010005280       0x64 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj
+                0x0000000010005280                __aeabi_float_init
  .text.float_table_shim_on_use_helper
-                0x0000000010004ff8       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
-                0x0000000010004ff8                float_table_shim_on_use_helper
+                0x00000000100052e4       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj
+                0x00000000100052e4                float_table_shim_on_use_helper
  .text.__wrap_realloc
-                0x0000000010005024       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj
-                0x0000000010005024                __wrap_realloc
+                0x0000000010005310       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj
+                0x0000000010005310                __wrap_realloc
  .text.__wrap_free
-                0x0000000010005048        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj
-                0x0000000010005048                __wrap_free
- .text          0x0000000010005050       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
-                0x0000000010005050                __aeabi_mem_init
- .text.memset   0x0000000010005060        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
-                0x0000000010005060                __wrap_memset
- .text.memcpy   0x000000001000506c        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
-                0x000000001000506c                __wrap___aeabi_memcpy
-                0x000000001000506c                __wrap_memcpy
+                0x0000000010005334        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj
+                0x0000000010005334                __wrap_free
+ .text          0x000000001000533c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+                0x000000001000533c                __aeabi_mem_init
+ .text.memset   0x000000001000534c        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+                0x000000001000534c                __wrap_memset
+ .text.memcpy   0x0000000010005358        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj
+                0x0000000010005358                __wrap___aeabi_memcpy
+                0x0000000010005358                __wrap_memcpy
  .text.stdio_out_chars_no_crlf
-                0x0000000010005078       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005364       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.stdio_out_chars_crlf
-                0x0000000010005088       0x94 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005374       0x94 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.stdio_buffered_printer
-                0x000000001000511c       0x64 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005408       0x64 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.stdio_put_string
-                0x0000000010005180      0x104 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x000000001000546c      0x104 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
  .text.__wrap_putchar
-                0x0000000010005284       0x98 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005284                __wrap_putchar
+                0x0000000010005570       0x98 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005570                __wrap_putchar
  .text.__wrap_puts
-                0x000000001000531c       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x000000001000531c                __wrap_puts
+                0x0000000010005608       0x3c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005608                __wrap_puts
  .text.stdio_set_driver_enabled
-                0x0000000010005358       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005358                stdio_set_driver_enabled
+                0x0000000010005644       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005644                stdio_set_driver_enabled
  .text.__wrap_vprintf
-                0x0000000010005388       0xd8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005388                __wrap_vprintf
+                0x0000000010005674       0xd8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005674                __wrap_vprintf
  .text.__wrap_printf
-                0x0000000010005460       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005460                __wrap_printf
+                0x000000001000574c       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x000000001000574c                __wrap_printf
  .text.stdio_init_all
-                0x0000000010005478       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005478                stdio_init_all
+                0x0000000010005764       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005764                stdio_init_all
  .text.__wrap_getchar
-                0x0000000010005488       0x7c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
-                0x0000000010005488                __wrap_getchar
+                0x0000000010005774       0x7c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+                0x0000000010005774                __wrap_getchar
  .text.stdio_uart_out_chars
-                0x0000000010005504       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x00000000100057f0       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .text.stdio_uart_in_chars
-                0x0000000010005550       0x84 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
-                0x0000000010005550                stdio_uart_in_chars
+                0x000000001000583c       0x84 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x000000001000583c                stdio_uart_in_chars
  .text.on_uart_rx
-                0x00000000100055d4       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x00000000100058c0       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .text.stdio_uart_set_chars_available_callback
-                0x00000000100055fc       0x8c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x00000000100058e8       0x8c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .text.stdio_uart_init
-                0x0000000010005688       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
-                0x0000000010005688                stdio_uart_init
+                0x0000000010005974       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010005974                stdio_uart_init
  .text.resetd_init
-                0x00000000100056d0        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x00000000100059bc        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
  .text.resetd_reset
-                0x00000000100056d4        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x00000000100059c0        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
  .text.resetd_open
-                0x00000000100056e0       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x00000000100059cc       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
  .text.resetd_xfer_cb
-                0x0000000010005708        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x00000000100059f4        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
  .text.resetd_control_xfer_cb
-                0x000000001000570c       0x64 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x00000000100059f8       0x64 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
  .text.usbd_app_driver_get_cb
-                0x0000000010005770        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
-                0x0000000010005770                usbd_app_driver_get_cb
+                0x0000000010005a5c        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x0000000010005a5c                usbd_app_driver_get_cb
  .text.tud_cdc_line_coding_cb
-                0x000000001000577c       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
-                0x000000001000577c                tud_cdc_line_coding_cb
+                0x0000000010005a68       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x0000000010005a68                tud_cdc_line_coding_cb
  .text.stdio_usb_set_chars_available_callback
-                0x00000000100057b0       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
-                0x00000000100057b0                stdio_usb_set_chars_available_callback
- .text.usb_irq  0x00000000100057c4       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005a9c       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005a9c                stdio_usb_set_chars_available_callback
+ .text.usb_irq  0x0000000010005ab0       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
  .text.timer_task
-                0x00000000100057d4       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005ac0       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
  .text.stdio_usb_in_chars
-                0x0000000010005828       0x90 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
-                0x0000000010005828                stdio_usb_in_chars
+                0x0000000010005b14       0x90 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005b14                stdio_usb_in_chars
  .text.stdio_usb_out_chars
-                0x00000000100058b8      0x100 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005ba4      0x100 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
  .text.low_priority_worker_irq
-                0x00000000100059b8       0xa8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005ca4       0xa8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
  .text.tud_cdc_rx_cb
-                0x0000000010005a60       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
-                0x0000000010005a60                tud_cdc_rx_cb
+                0x0000000010005d4c       0x20 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005d4c                tud_cdc_rx_cb
  .text.stdio_usb_init
-                0x0000000010005a80       0xdc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
-                0x0000000010005a80                stdio_usb_init
+                0x0000000010005d6c       0xdc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010005d6c                stdio_usb_init
  .text.tud_descriptor_device_cb
-                0x0000000010005b5c        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
-                0x0000000010005b5c                tud_descriptor_device_cb
+                0x0000000010005e48        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+                0x0000000010005e48                tud_descriptor_device_cb
  .text.tud_descriptor_configuration_cb
-                0x0000000010005b64        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
-                0x0000000010005b64                tud_descriptor_configuration_cb
+                0x0000000010005e50        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+                0x0000000010005e50                tud_descriptor_configuration_cb
  .text.tud_descriptor_string_cb
-                0x0000000010005b6c       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
-                0x0000000010005b6c                tud_descriptor_string_cb
+                0x0000000010005e58       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+                0x0000000010005e58                tud_descriptor_string_cb
  .text.startup._retrieve_unique_id_on_boot
-                0x0000000010005bdc       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
+                0x0000000010005ec8       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
  .text.pico_get_unique_board_id_string
-                0x0000000010005bec      0x1bc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
-                0x0000000010005bec                pico_get_unique_board_id_string
+                0x0000000010005ed8      0x1bc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj
+                0x0000000010005ed8                pico_get_unique_board_id_string
  .text.flash_get_unique_id
-                0x0000000010005da8       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
-                0x0000000010005da8                flash_get_unique_id
+                0x0000000010006094       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_flash/flash.c.obj
+                0x0000000010006094                flash_get_unique_id
  .text.dcd_int_enable
-                0x0000000010005de8        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005de8                dcd_int_enable
+                0x00000000100060d4        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100060d4                dcd_int_enable
  .text.dcd_set_address
-                0x0000000010005df4       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005df4                dcd_set_address
+                0x00000000100060e0       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100060e0                dcd_set_address
  .text.dcd_connect
-                0x0000000010005e08       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005e08                dcd_connect
+                0x00000000100060f4       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100060f4                dcd_connect
  .text.dcd_init
-                0x0000000010005e18       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005e18                dcd_init
+                0x0000000010006104       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x0000000010006104                dcd_init
  .text.dcd_edpt0_status_complete
-                0x0000000010005eb4       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005eb4                dcd_edpt0_status_complete
+                0x00000000100061a0       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100061a0                dcd_edpt0_status_complete
  .text.dcd_edpt_open
-                0x0000000010005ed0      0x108 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005ed0                dcd_edpt_open
+                0x00000000100061bc      0x108 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100061bc                dcd_edpt_open
  .text.dcd_edpt_close_all
-                0x0000000010005fd8        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005fd8                dcd_edpt_close_all
+                0x00000000100062c4        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100062c4                dcd_edpt_close_all
  .text.dcd_edpt_xfer
-                0x0000000010005fe0       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010005fe0                dcd_edpt_xfer
+                0x00000000100062cc       0x24 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100062cc                dcd_edpt_xfer
  .text.dcd_edpt_stall
-                0x0000000010006004       0x38 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x0000000010006004                dcd_edpt_stall
+                0x00000000100062f0       0x38 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x00000000100062f0                dcd_edpt_stall
  .text.dcd_edpt_clear_stall
-                0x000000001000603c       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
-                0x000000001000603c                dcd_edpt_clear_stall
+                0x0000000010006328       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x0000000010006328                dcd_edpt_clear_stall
  .text.rp2040_usb_init
-                0x000000001000606c       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
-                0x000000001000606c                rp2040_usb_init
+                0x0000000010006358       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010006358                rp2040_usb_init
  .text.hw_endpoint_xfer_start
-                0x00000000100060b8       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
-                0x00000000100060b8                hw_endpoint_xfer_start
+                0x00000000100063a4       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x00000000100063a4                hw_endpoint_xfer_start
  .text.tud_mounted
-                0x000000001000610c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x000000001000610c                tud_mounted
+                0x00000000100063f8       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x00000000100063f8                tud_mounted
  .text.tud_suspended
-                0x000000001000611c       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x000000001000611c                tud_suspended
+                0x0000000010006408       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006408                tud_suspended
  .text.tud_inited
-                0x000000001000612c       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x000000001000612c                tud_inited
+                0x0000000010006418       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006418                tud_inited
  .text.tud_init
-                0x0000000010006140       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006140                tud_init
+                0x000000001000642c       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x000000001000642c                tud_init
  .text.tud_task_ext
-                0x0000000010006224      0x858 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006224                tud_task_ext
+                0x0000000010006510      0x858 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006510                tud_task_ext
  .text.usbd_open_edpt_pair
-                0x0000000010006a7c       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006a7c                usbd_open_edpt_pair
+                0x0000000010006d68       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006d68                usbd_open_edpt_pair
  .text.usbd_defer_func
-                0x0000000010006b18       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006b18                usbd_defer_func
+                0x0000000010006e04       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006e04                usbd_defer_func
  .text.usbd_edpt_open
-                0x0000000010006b64       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006b64                usbd_edpt_open
+                0x0000000010006e50       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006e50                usbd_edpt_open
  .text.usbd_edpt_claim
-                0x0000000010006b98       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006b98                usbd_edpt_claim
+                0x0000000010006e84       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006e84                usbd_edpt_claim
  .text.usbd_edpt_release
-                0x0000000010006bc0       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006bc0                usbd_edpt_release
+                0x0000000010006eac       0x28 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006eac                usbd_edpt_release
  .text.usbd_edpt_xfer
-                0x0000000010006be8       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x0000000010006be8                usbd_edpt_xfer
+                0x0000000010006ed4       0x4c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010006ed4                usbd_edpt_xfer
  .text.tud_control_status
-                0x0000000010006c34       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
-                0x0000000010006c34                tud_control_status
+                0x0000000010006f20       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+                0x0000000010006f20                tud_control_status
  .text.tud_control_xfer
-                0x0000000010006c64       0xb8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
-                0x0000000010006c64                tud_control_xfer
+                0x0000000010006f50       0xb8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+                0x0000000010006f50                tud_control_xfer
  .text.usbd_control_reset
-                0x0000000010006d1c       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
-                0x0000000010006d1c                usbd_control_reset
+                0x0000000010007008       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+                0x0000000010007008                usbd_control_reset
  .text.usbd_control_set_complete_callback
-                0x0000000010006d30        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
-                0x0000000010006d30                usbd_control_set_complete_callback
+                0x000000001000701c        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+                0x000000001000701c                usbd_control_set_complete_callback
  .text.usbd_control_set_request
-                0x0000000010006d3c       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
-                0x0000000010006d3c                usbd_control_set_request
+                0x0000000010007028       0x1c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+                0x0000000010007028                usbd_control_set_request
  .text.usbd_control_xfer_cb
-                0x0000000010006d58       0xf8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
-                0x0000000010006d58                usbd_control_xfer_cb
+                0x0000000010007044       0xf8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd_control.c.obj
+                0x0000000010007044                usbd_control_xfer_cb
  .text.tud_cdc_n_connected
-                0x0000000010006e50       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006e50                tud_cdc_n_connected
+                0x000000001000713c       0x30 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x000000001000713c                tud_cdc_n_connected
  .text.tud_cdc_n_available
-                0x0000000010006e80       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006e80                tud_cdc_n_available
+                0x000000001000716c       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x000000001000716c                tud_cdc_n_available
  .text.tud_cdc_n_read
-                0x0000000010006e98       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006e98                tud_cdc_n_read
+                0x0000000010007184       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x0000000010007184                tud_cdc_n_read
  .text.tud_cdc_n_write_flush
-                0x0000000010006f08       0x78 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006f08                tud_cdc_n_write_flush
+                0x00000000100071f4       0x78 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x00000000100071f4                tud_cdc_n_write_flush
  .text.tud_cdc_n_write
-                0x0000000010006f80       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006f80                tud_cdc_n_write
+                0x000000001000726c       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x000000001000726c                tud_cdc_n_write
  .text.tud_cdc_n_write_available
-                0x0000000010006fb4       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006fb4                tud_cdc_n_write_available
+                0x00000000100072a0       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x00000000100072a0                tud_cdc_n_write_available
  .text.cdcd_init
-                0x0000000010006fcc       0x7c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010006fcc                cdcd_init
+                0x00000000100072b8       0x7c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x00000000100072b8                cdcd_init
  .text.cdcd_reset
-                0x0000000010007048       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010007048                cdcd_reset
+                0x0000000010007334       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x0000000010007334                cdcd_reset
  .text.cdcd_open
-                0x0000000010007074       0xe8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010007074                cdcd_open
+                0x0000000010007360       0xe8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x0000000010007360                cdcd_open
  .text.cdcd_control_xfer_cb
-                0x000000001000715c       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x000000001000715c                cdcd_control_xfer_cb
+                0x0000000010007448       0xe4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x0000000010007448                cdcd_control_xfer_cb
  .text.cdcd_xfer_cb
-                0x0000000010007240      0x198 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
-                0x0000000010007240                cdcd_xfer_cb
+                0x000000001000752c      0x198 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj
+                0x000000001000752c                cdcd_xfer_cb
  .text.tusb_init
-                0x00000000100073d8        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100073d8                tusb_init
+                0x00000000100076c4        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x00000000100076c4                tusb_init
  .text.tusb_inited
-                0x00000000100073e4        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100073e4                tusb_inited
+                0x00000000100076d0        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x00000000100076d0                tusb_inited
  .text.tu_edpt_claim
-                0x00000000100073ec       0x50 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100073ec                tu_edpt_claim
+                0x00000000100076d8       0x50 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x00000000100076d8                tu_edpt_claim
  .text.tu_edpt_release
-                0x000000001000743c       0x38 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x000000001000743c                tu_edpt_release
+                0x0000000010007728       0x38 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x0000000010007728                tu_edpt_release
  .text.tu_edpt_validate
-                0x0000000010007474       0x78 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x0000000010007474                tu_edpt_validate
+                0x0000000010007760       0x78 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x0000000010007760                tu_edpt_validate
  .text.tu_edpt_bind_driver
-                0x00000000100074ec       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
-                0x00000000100074ec                tu_edpt_bind_driver
+                0x00000000100077d8       0x34 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
+                0x00000000100077d8                tu_edpt_bind_driver
  .text.tu_fifo_config
-                0x0000000010007520       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x0000000010007520                tu_fifo_config
+                0x000000001000780c       0x70 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x000000001000780c                tu_fifo_config
  .text.tu_fifo_count
-                0x0000000010007590       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x0000000010007590                tu_fifo_count
+                0x000000001000787c       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x000000001000787c                tu_fifo_count
  .text.tu_fifo_empty
-                0x00000000100075bc       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x00000000100075bc                tu_fifo_empty
+                0x00000000100078a8       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x00000000100078a8                tu_fifo_empty
  .text.tu_fifo_remaining
-                0x00000000100075cc       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x00000000100075cc                tu_fifo_remaining
+                0x00000000100078b8       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x00000000100078b8                tu_fifo_remaining
  .text.tu_fifo_read
-                0x00000000100075f8       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x00000000100075f8                tu_fifo_read
+                0x00000000100078e4       0x9c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x00000000100078e4                tu_fifo_read
  .text.tu_fifo_read_n
-                0x0000000010007694       0xf0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x0000000010007694                tu_fifo_read_n
+                0x0000000010007980       0xf0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x0000000010007980                tu_fifo_read_n
  .text.tu_fifo_write
-                0x0000000010007784       0x88 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x0000000010007784                tu_fifo_write
+                0x0000000010007a70       0x88 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x0000000010007a70                tu_fifo_write
  .text.tu_fifo_write_n
-                0x000000001000780c      0x158 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x000000001000780c                tu_fifo_write_n
+                0x0000000010007af8      0x158 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x0000000010007af8                tu_fifo_write_n
  .text.tu_fifo_clear
-                0x0000000010007964       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x0000000010007964                tu_fifo_clear
+                0x0000000010007c50       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x0000000010007c50                tu_fifo_clear
  .text.tu_fifo_set_overwritable
-                0x00000000100079a4       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
-                0x00000000100079a4                tu_fifo_set_overwritable
- .text          0x00000000100079ec       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-abort.o)
-                0x00000000100079ec                abort
- .text          0x00000000100079fc       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-malloc.o)
-                0x00000000100079fc                malloc
-                0x0000000010007a10                free
- .text          0x0000000010007a24      0x58c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mallocr.o)
-                0x0000000010007a24                _malloc_r
- .text          0x0000000010007fb0        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mlock.o)
-                0x0000000010007fb0                __malloc_lock
-                0x0000000010007fb4                __malloc_unlock
- .text          0x0000000010007fb8       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-realloc.o)
-                0x0000000010007fb8                realloc
- .text          0x0000000010007fd0      0x35c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-reallocr.o)
-                0x0000000010007fd0                _realloc_r
- .text          0x000000001000832c       0x24 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sbrkr.o)
-                0x000000001000832c                _sbrk_r
- .text          0x0000000010008350      0x190 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-signal.o)
-                0x000000001000837c                _init_signal_r
-                0x0000000010008398                _signal_r
-                0x00000000100083d4                _raise_r
-                0x0000000010008430                __sigtramp_r
-                0x0000000010008480                raise
-                0x0000000010008494                signal
-                0x00000000100084ac                _init_signal
-                0x00000000100084cc                __sigtramp
- .text          0x00000000100084e0       0x30 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-signalr.o)
-                0x00000000100084e0                _kill_r
-                0x0000000010008508                _getpid_r
- .text          0x0000000010008510       0x68 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strlen-stub.o)
-                0x0000000010008510                strlen
- .text          0x0000000010008578      0x27c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-freer.o)
-                0x0000000010008578                _malloc_trim_r
-                0x0000000010008618                _free_r
+                0x0000000010007c90       0x48 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
+                0x0000000010007c90                tu_fifo_set_overwritable
+ .text          0x0000000010007cd8       0x10 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-abort.o)
+                0x0000000010007cd8                abort
+ .text          0x0000000010007ce8       0x28 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-malloc.o)
+                0x0000000010007ce8                malloc
+                0x0000000010007cfc                free
+ .text          0x0000000010007d10      0x58c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mallocr.o)
+                0x0000000010007d10                _malloc_r
+ .text          0x000000001000829c        0x8 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-mlock.o)
+                0x000000001000829c                __malloc_lock
+                0x00000000100082a0                __malloc_unlock
+ .text          0x00000000100082a4       0x18 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-realloc.o)
+                0x00000000100082a4                realloc
+ .text          0x00000000100082bc      0x35c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-reallocr.o)
+                0x00000000100082bc                _realloc_r
+ .text          0x0000000010008618       0x24 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-sbrkr.o)
+                0x0000000010008618                _sbrk_r
+ .text          0x000000001000863c      0x190 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-signal.o)
+                0x0000000010008668                _init_signal_r
+                0x0000000010008684                _signal_r
+                0x00000000100086c0                _raise_r
+                0x000000001000871c                __sigtramp_r
+                0x000000001000876c                raise
+                0x0000000010008780                signal
+                0x0000000010008798                _init_signal
+                0x00000000100087b8                __sigtramp
+ .text          0x00000000100087cc       0x30 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-signalr.o)
+                0x00000000100087cc                _kill_r
+                0x00000000100087f4                _getpid_r
+ .text          0x00000000100087fc       0x68 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-strlen-stub.o)
+                0x00000000100087fc                strlen
+ .text          0x0000000010008864      0x27c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libc.a(lib_a-freer.o)
+                0x0000000010008864                _malloc_trim_r
+                0x0000000010008904                _free_r
  *(.fini)
- .fini          0x00000000100087f4        0x4 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crti.o
-                0x00000000100087f4                _fini
- .fini.__stub   0x00000000100087f8       0xe0 linker stubs
+ .fini          0x0000000010008ae0        0x4 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crti.o
+                0x0000000010008ae0                _fini
+ *fill*         0x0000000010008ae4        0x4 
+ .fini.__stub   0x0000000010008ae8       0xe0 linker stubs
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -2689,166 +2692,170 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.eh_frame*)
- .eh_frame      0x00000000100088d8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
-                0x00000000100088d8                . = ALIGN (0x4)
+ .eh_frame      0x0000000010008bc8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
+                0x0000000010008bc8                . = ALIGN (0x4)
 
-.glue_7         0x00000000100088d8        0x0
- .glue_7        0x00000000100088d8        0x0 linker stubs
+.glue_7         0x0000000010008bc8        0x0
+ .glue_7        0x0000000010008bc8        0x0 linker stubs
 
-.glue_7t        0x00000000100088d8        0x0
- .glue_7t       0x00000000100088d8        0x0 linker stubs
+.glue_7t        0x0000000010008bc8        0x0
+ .glue_7t       0x0000000010008bc8        0x0 linker stubs
 
-.vfp11_veneer   0x00000000100088d8        0x0
- .vfp11_veneer  0x00000000100088d8        0x0 linker stubs
+.vfp11_veneer   0x0000000010008bc8        0x0
+ .vfp11_veneer  0x0000000010008bc8        0x0 linker stubs
 
-.v4_bx          0x00000000100088d8        0x0
- .v4_bx         0x00000000100088d8        0x0 linker stubs
+.v4_bx          0x0000000010008bc8        0x0
+ .v4_bx         0x0000000010008bc8        0x0 linker stubs
 
-.iplt           0x00000000100088d8        0x0
- .iplt          0x00000000100088d8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x0000000010008bc8        0x0
+ .iplt          0x0000000010008bc8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
 
-.rodata         0x00000000100088d8      0xa18
+.rodata         0x0000000010008bc8      0xa70
  *(EXCLUDE_FILE(*libm.a: *libc.a:*lib_a-mem*.o *libgcc.a:) .rodata*)
  .rodata.registerCallback.str1.4
-                0x00000000100088d8       0x84 CMakeFiles/firmware.dir/firmware.c.obj
+                0x0000000010008bc8       0x84 CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.modbusErrorStr.str1.4
-                0x000000001000895c       0x16 CMakeFiles/firmware.dir/firmware.c.obj
- *fill*         0x0000000010008972        0x2 
+                0x0000000010008c4c       0x16 CMakeFiles/firmware.dir/firmware.c.obj
+ *fill*         0x0000000010008c62        0x2 
+ .rodata.printAndSendFrameResponse.str1.4
+                0x0000000010008c64        0xb CMakeFiles/firmware.dir/firmware.c.obj
+ *fill*         0x0000000010008c6f        0x1 
+ .rodata.printErrorInfo.str1.4
+                0x0000000010008c70       0x65 CMakeFiles/firmware.dir/firmware.c.obj
+ *fill*         0x0000000010008cd5        0x3 
  .rodata.main.str1.4
-                0x0000000010008974       0xdd CMakeFiles/firmware.dir/firmware.c.obj
- *fill*         0x0000000010008a51        0x3 
+                0x0000000010008cd8       0x90 CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.str1.4
-                0x0000000010008a54      0x2a7 CMakeFiles/firmware.dir/firmware.c.obj
- *fill*         0x0000000010008cfb        0x1 
- .rodata.CSWTCH.102
-                0x0000000010008cfc        0x4 CMakeFiles/firmware.dir/firmware.c.obj
- .rodata.CSWTCH.103
-                0x0000000010008d00        0x8 CMakeFiles/firmware.dir/firmware.c.obj
+                0x0000000010008d68      0x2df CMakeFiles/firmware.dir/firmware.c.obj
+ *fill*         0x0000000010009047        0x1 
  .rodata.CSWTCH.104
-                0x0000000010008d08        0x4 CMakeFiles/firmware.dir/firmware.c.obj
- .rodata.CSWTCH.126
-                0x0000000010008d0c       0x34 CMakeFiles/firmware.dir/firmware.c.obj
+                0x0000000010009048        0x4 CMakeFiles/firmware.dir/firmware.c.obj
+ .rodata.CSWTCH.105
+                0x000000001000904c        0x8 CMakeFiles/firmware.dir/firmware.c.obj
+ .rodata.CSWTCH.106
+                0x0000000010009054        0x4 CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.CSWTCH.128
-                0x0000000010008d40       0x10 CMakeFiles/firmware.dir/firmware.c.obj
- .rodata.CSWTCH.132
-                0x0000000010008d50       0x20 CMakeFiles/firmware.dir/firmware.c.obj
+                0x0000000010009058       0x34 CMakeFiles/firmware.dir/firmware.c.obj
+ .rodata.CSWTCH.130
+                0x000000001000908c       0x10 CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.CSWTCH.134
-                0x0000000010008d70       0x10 CMakeFiles/firmware.dir/firmware.c.obj
+                0x000000001000909c       0x20 CMakeFiles/firmware.dir/firmware.c.obj
+ .rodata.CSWTCH.136
+                0x00000000100090bc       0x10 CMakeFiles/firmware.dir/firmware.c.obj
  .rodata.spin_lock_claim_unused.str1.4
-                0x0000000010008d80       0x1b CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
- *fill*         0x0000000010008d9b        0x1 
+                0x00000000100090cc       0x1b CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj
+ *fill*         0x00000000100090e7        0x1 
  .rodata.user_irq_claim_unused.str1.4
-                0x0000000010008d9c       0x1b CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
- *fill*         0x0000000010008db7        0x1 
+                0x00000000100090e8       0x1b CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj
+ *fill*         0x0000000010009103        0x5 
  .rodata.at_the_end_of_time
-                0x0000000010008db8        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
-                0x0000000010008db8                at_the_end_of_time
+                0x0000000010009108        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_time/time.c.obj
+                0x0000000010009108                at_the_end_of_time
  .rodata.hardware_alarm_claim.str1.4
-                0x0000000010008dc0       0x22 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
- *fill*         0x0000000010008de2        0x2 
+                0x0000000010009110       0x22 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj
+ *fill*         0x0000000010009132        0x2 
  .rodata.panic.str1.4
-                0x0000000010008de4       0x12 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
- *fill*         0x0000000010008df6        0x2 
+                0x0000000010009134       0x10 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                                         0x12 (size before relaxing)
  .rodata.hard_assertion_failure.str1.4
-                0x0000000010008df8        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
+                0x0000000010009144        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
  .rodata._ftoa.str1.4
-                0x0000000010008e04       0x15 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- *fill*         0x0000000010008e19        0x3 
+                0x0000000010009150       0x15 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+ *fill*         0x0000000010009165        0x3 
  .rodata._vsnprintf
-                0x0000000010008e1c      0x1e0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
- *fill*         0x0000000010008ffc        0x4 
+                0x0000000010009168      0x1e0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .rodata.pow10.5452
-                0x0000000010009000       0x50 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
+                0x0000000010009348       0x50 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_printf/printf.c.obj
  .rodata.__wrap_malloc.str1.4
-                0x0000000010009050        0xe CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj
- *fill*         0x000000001000905e        0x2 
+                0x0000000010009398        0xe CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj
+ *fill*         0x00000000100093a6        0x2 
  .rodata.str1.4
-                0x0000000010009060       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100093a8       0x40 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.__bi_44
-                0x00000000100090a0        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100093e8        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.__bi_75
-                0x00000000100090ac        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x00000000100093f4        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.__bi_81
-                0x00000000100090b8        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x0000000010009400        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .rodata.crlf_str.6238
-                0x00000000100090c4        0x2 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
- *fill*         0x00000000100090c6        0x2 
+                0x000000001000940c        0x2 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj
+ *fill*         0x000000001000940e        0x2 
  .rodata.str1.4
-                0x00000000100090c8       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010009410       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .rodata.__bi_33.4878
-                0x00000000100090f4        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x000000001000943c        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .rodata.__bi_34.4882
-                0x0000000010009100        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010009448        0x8 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .rodata._resetd_driver
-                0x0000000010009108       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
+                0x0000000010009450       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/reset_interface.c.obj
  .rodata.str1.4
-                0x0000000010009120       0x13 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
- *fill*         0x0000000010009133        0x1 
+                0x0000000010009468       0x13 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+ *fill*         0x000000001000947b        0x1 
  .rodata.__bi_188.7657
-                0x0000000010009134        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x000000001000947c        0xc CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
  .rodata.str1.4
-                0x0000000010009140       0x2a CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
- *fill*         0x000000001000916a        0x2 
+                0x0000000010009488       0x2a CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+ *fill*         0x00000000100094b2        0x2 
  .rodata.usbd_desc_cfg
-                0x000000001000916c       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+                0x00000000100094b4       0x54 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
  .rodata.usbd_desc_device
-                0x00000000100091c0       0x12 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
- *fill*         0x00000000100091d2        0x2 
+                0x0000000010009508       0x12 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+ *fill*         0x000000001000951a        0x2 
  .rodata.usbd_desc_str
-                0x00000000100091d4       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
+                0x000000001000951c       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj
  .rodata.str1.4
-                0x00000000100091ec       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
+                0x0000000010009534       0x14 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/dcd_rp2040.c.obj
  .rodata.str1.4
-                0x0000000010009200       0x49 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
+                0x0000000010009548       0x49 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/portable/raspberrypi/rp2040/rp2040_usb.c.obj
                                          0x53 (size before relaxing)
- *fill*         0x0000000010009249        0x3 
+ *fill*         0x0000000010009591        0x3 
  .rodata.tud_task_ext
-                0x000000001000924c       0x8c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010009594       0x8c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
  .rodata._usbd_driver
-                0x00000000100092d8       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
-                0x00000000100092f0                . = ALIGN (0x4)
+                0x0000000010009620       0x18 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/device/usbd.c.obj
+                0x0000000010009638                . = ALIGN (0x4)
  *(SORT_BY_ALIGNMENT(SORT_BY_NAME(.flashdata*)))
-                0x00000000100092f0                . = ALIGN (0x4)
+                0x0000000010009638                . = ALIGN (0x4)
 
-.rel.dyn        0x00000000100092f0        0x0
- .rel.iplt      0x00000000100092f0        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x0000000010009638        0x0
+ .rel.iplt      0x0000000010009638        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x00000000100092f0                __exidx_start = .
+                0x0000000010009638                __exidx_start = .
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00000000100092f0                __exidx_end = .
-                0x00000000100092f0                . = ALIGN (0x4)
-                0x00000000100092f0                __binary_info_start = .
+                0x0000000010009638                __exidx_end = .
+                0x0000000010009638                . = ALIGN (0x4)
+                0x0000000010009638                __binary_info_start = .
 
-.binary_info    0x00000000100092f0       0x28
+.binary_info    0x0000000010009638       0x28
  *(.binary_info.keep.*)
  .binary_info.keep.__bi_ptr22
-                0x00000000100092f0        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x0000000010009638        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr30
-                0x00000000100092f4        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x000000001000963c        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr38
-                0x00000000100092f8        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x0000000010009640        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr44
-                0x00000000100092fc        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x0000000010009644        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr50
-                0x0000000010009300        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x0000000010009648        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr75
-                0x0000000010009304        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x000000001000964c        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  .binary_info.keep.__bi_ptr81
-                0x0000000010009308        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
+                0x0000000010009650        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj
  *(.binary_info.*)
  .binary_info.__bi_ptr33
-                0x000000001000930c        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010009654        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .binary_info.__bi_ptr34
-                0x0000000010009310        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
+                0x0000000010009658        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj
  .binary_info.__bi_ptr188
-                0x0000000010009314        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
-                0x0000000010009318                __binary_info_end = .
-                0x0000000010009318                . = ALIGN (0x4)
-                0x0000000010009318                __etext = .
+                0x000000001000965c        0x4 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb.c.obj
+                0x0000000010009660                __binary_info_end = .
+                0x0000000010009660                . = ALIGN (0x4)
+                0x0000000010009660                __etext = .
 
 .ram_vector_table
                 0x0000000020000000       0xc0
@@ -2857,7 +2864,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
                 0x0000000020000000       0xc0 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj
                 0x0000000020000000                ram_vector_table
 
-.data           0x00000000200000c0     0x17f8 load address 0x0000000010009318
+.data           0x00000000200000c0     0x17f8 load address 0x0000000010009660
                 0x00000000200000c0                __data_start__ = .
  *(vtable)
  *(.time_critical*)
@@ -3007,33 +3014,33 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
                 0x00000000200018b8                __data_end__ = .
 
 .tm_clone_table
-                0x00000000200018b8        0x0 load address 0x000000001000ab10
+                0x00000000200018b8        0x0 load address 0x000000001000ae58
  .tm_clone_table
                 0x00000000200018b8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
  .tm_clone_table
                 0x00000000200018b8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtend.o
 
-.igot.plt       0x00000000200018b8        0x0 load address 0x000000001000ab10
+.igot.plt       0x00000000200018b8        0x0 load address 0x000000001000ae58
  .igot.plt      0x00000000200018b8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/crtbegin.o
 
 .uninitialized_data
-                0x00000000200018b8        0x0 load address 0x000000001000ab10
+                0x00000000200018b8        0x0 load address 0x000000001000ae58
                 0x00000000200018b8                . = ALIGN (0x4)
  *(.uninitialized_data*)
 
-.scratch_x      0x0000000020040000        0x0 load address 0x000000001000ab10
+.scratch_x      0x0000000020040000        0x0 load address 0x000000001000ae58
                 0x0000000020040000                __scratch_x_start__ = .
  *(.scratch_x.*)
                 0x0000000020040000                . = ALIGN (0x4)
                 0x0000000020040000                __scratch_x_end__ = .
-                0x000000001000ab10                __scratch_x_source__ = LOADADDR (.scratch_x)
+                0x000000001000ae58                __scratch_x_source__ = LOADADDR (.scratch_x)
 
-.scratch_y      0x0000000020041000        0x0 load address 0x000000001000ab10
+.scratch_y      0x0000000020041000        0x0 load address 0x000000001000ae58
                 0x0000000020041000                __scratch_y_start__ = .
  *(.scratch_y.*)
                 0x0000000020041000                . = ALIGN (0x4)
                 0x0000000020041000                __scratch_y_end__ = .
-                0x000000001000ab10                __scratch_y_source__ = LOADADDR (.scratch_y)
+                0x000000001000ae58                __scratch_y_source__ = LOADADDR (.scratch_y)
 
 .bss            0x00000000200018b8      0xdf8
                 0x00000000200018b8                . = ALIGN (0x4)
@@ -3169,8 +3176,8 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp
  *(.stack*)
  .stack         0x0000000020041000      0x800 CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj
 
-.flash_end      0x000000001000ab10        0x0
-                0x000000001000ab10                __flash_binary_end = .
+.flash_end      0x000000001000ae58        0x0
+                0x000000001000ae58                __flash_binary_end = .
                 0x0000000020040000                __StackLimit = (ORIGIN (RAM) + LENGTH (RAM))
                 0x0000000020041000                __StackOneTop = (ORIGIN (SCRATCH_X) + LENGTH (SCRATCH_X))
                 0x0000000020042000                __StackTop = (ORIGIN (SCRATCH_Y) + LENGTH (SCRATCH_Y))
@@ -3249,7 +3256,7 @@ LOAD CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/ti
 LOAD CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/tusb.c.obj
 LOAD CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
 LOAD CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/rp2040_usb_device_enumeration.c.obj
-LOAD /tmp/ccVVhQyc.o
+LOAD /tmp/ccC6vtHx.o
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libstdc++.a
 LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib/thumb/v6-m/nofp/libm.a
 START GROUP
@@ -3369,7 +3376,7 @@ LOAD linker stubs
  .ARM.attributes
                 0x0000000000000800       0x2c CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common/tusb_fifo.c.obj
  .ARM.attributes
-                0x000000000000082c       0x22 /tmp/ccVVhQyc.o
+                0x000000000000082c       0x22 /tmp/ccC6vtHx.o
  .ARM.attributes
                 0x000000000000084e       0x1e /usr/lib/gcc/arm-none-eabi/9.2.1/thumb/v6-m/nofp/libgcc.a(_dvmd_tls.o)
  .ARM.attributes

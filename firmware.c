@@ -23,7 +23,7 @@
 #define BAUDRATE 9600
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
-#define MAX_LENGTH_W 8
+#define MAX_LENGTH_W 9
 
 
 typedef enum StateOfSlave
@@ -77,31 +77,32 @@ int main() {
 
     while(1){
 
-        memset(receiveBuffer, i_get, sizeof(receiveBuffer));
+        //memset(receiveBuffer, i_get, sizeof(receiveBuffer));
         i_get=0;
-        while ((single = getchar()) != '\n' && i_get<MAX_LENGTH_W) {
-            receiveBuffer[i_get] = single;
-            i_get++;
-            gpio_put(LED_PIN,1);
-            uart_puts(UART_ID, "LED on\n");
-        }
+        // while ((single = getchar()) != '\n' && i_get<MAX_LENGTH_W) {
+        //     receiveBuffer[i_get] = single;
+        //     i_get++;
+        //     gpio_put(LED_PIN,1);
+        //     uart_puts(UART_ID, "LED on\n");
+        // }
 
-        uart_puts(UART_ID, "outside while\n");
-        receiveBuffer[i_get] = '\0';
+        // uart_puts(UART_ID, "outside while\n");
+        // receiveBuffer[i_get] = '\0';
 
+        fgets(receiveBuffer, MAX_LENGTH_W, stdin);
        // sleep_ms(1000);
         uart_puts(UART_ID, "RTU frame before treatment by library ..");
         for(int i = 0; i<MAX_LENGTH_W; i++){
             uart_puts(UART_ID, "printing the frame\n");
-            if((receiveBuffer[i_get] != '\0' || receiveBuffer[i_get] != '\n')){
+           // if((receiveBuffer[i_get] != '\0' || receiveBuffer[i_get] != '\n')){
                 printf(" %02X", receiveBuffer[i]);
-            }
+         //   }
         }
 
         printf("\n"); 
         gpio_put(LED_PIN,0);
 
-        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
+        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, MAX_LENGTH_W);
         printErrorInfo(error);
         uart_puts(UART_ID, "RTU response from lib: ");
         printAndSendFrameResponse(error, &slave);
@@ -152,58 +153,58 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 		args->function
 	);
 
-    // switch (args->query){
+    switch (args->query){
 
-	// 	// Pretend to allow all access
-	// 	case MODBUS_REGQ_R_CHECK:
-	// 	case MODBUS_REGQ_W_CHECK:
-	// 		result->exceptionCode = MODBUS_EXCEP_NONE;
-	// 		break;
-
-	// 	// Return 7 when reading
-	// 	case MODBUS_REGQ_R:
-	// 		result->value = 7;
-	// 		break;
-		
-	// 	default: break;
-	// }
-
-	switch (args->query){
-
+		// Pretend to allow all access
 		case MODBUS_REGQ_R_CHECK:
-			if (args->index < REG_COUNT)
-				result->exceptionCode = MODBUS_EXCEP_NONE;
-			else	
-				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
-			break;
 		case MODBUS_REGQ_W_CHECK:
-			if (args->index < REG_COUNT - 2)
-				result->exceptionCode = MODBUS_EXCEP_NONE;
-			else	
-				result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
+			result->exceptionCode = MODBUS_EXCEP_NONE;
 			break;
 
+		// Return 7 when reading
 		case MODBUS_REGQ_R:
-            result->value=7;
-			switch (args->type){
-				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
-				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
-				case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
-				case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
-			}
+			result->value = 7;
 			break;
-
-
-		case MODBUS_REGQ_W:
-			switch (args->type)
-			{
-				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
-				case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
-				default: abort(); break;
-			}
-			break;
+		
 		default: break;
 	}
+
+	// switch (args->query){
+
+	// 	case MODBUS_REGQ_R_CHECK:
+	// 		if (args->index < REG_COUNT)
+	// 			result->exceptionCode = MODBUS_EXCEP_NONE;
+	// 		else	
+	// 			result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
+	// 		break;
+	// 	case MODBUS_REGQ_W_CHECK:
+	// 		if (args->index < REG_COUNT - 2)
+	// 			result->exceptionCode = MODBUS_EXCEP_NONE;
+	// 		else	
+	// 			result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
+	// 		break;
+
+	// 	case MODBUS_REGQ_R:
+    //         result->value=7;
+	// 		switch (args->type){
+	// 			case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
+	// 			case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
+	// 			case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
+	// 			case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
+	// 		}
+	// 		break;
+
+
+	// 	case MODBUS_REGQ_W:
+	// 		switch (args->type)
+	// 		{
+	// 			case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
+	// 			case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
+	// 			default: abort(); break;
+	// 		}
+	// 		break;
+	// 	default: break;
+	// }
     
     return MODBUS_OK;
 

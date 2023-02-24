@@ -22,6 +22,6 @@ while True:
     # time.sleep(1)
     # print("after write") 
     receive = master.read_holding_registers(5, 2, 0x01)
-    # print(receive)
+    print(receive)
     time.sleep(1)
     print("read")

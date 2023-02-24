@@ -23,7 +23,7 @@
 #define BAUDRATE 9600
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
-#define MAX_LENGTH_W 8
+#define MAX_LENGTH_W 7
 
 
 typedef enum StateOfSlave
@@ -87,9 +87,9 @@ int main() {
         }
 
         uart_puts(UART_ID, "outside while\n");
-        receiveBuffer[i_get] = '\0';
+        // receiveBuffer[i_get] = '\0';
 
-        sleep_ms(1000);
+       // sleep_ms(1000);
         uart_puts(UART_ID, "RTU frame before treatment by library ..");
         for(int i = 0; i<MAX_LENGTH_W; i++){
             uart_puts(UART_ID, "printing the frame\n");

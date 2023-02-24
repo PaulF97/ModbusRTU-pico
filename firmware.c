@@ -76,12 +76,11 @@ int main() {
     StateOfSlave state = STATE_IDLE;
 
     while(1){
-        // reset receive frame and local variable
-       // memset(receiveBuffer, i_get, sizeof(receiveBuffer));
+
 
         i_get=0;
         while ((single = getchar()) != '\n' && i_get<MAX_LENGTH_W) {
-            receiveBuffer[i_get] = (int) single;
+            receiveBuffer[i_get] = single;
             i_get++;
             gpio_put(LED_PIN,1);
             uart_puts(UART_ID, "LED on\n");
@@ -90,21 +89,18 @@ int main() {
         uart_puts(UART_ID, "outside while\n");
         receiveBuffer[i_get] = '\0';
 
-        //sleep_ms(1000);
-
-        // fgets(receiveBuffer, MAX_LENGTH, stdin);
-
-        // printf frame
+        sleep_ms(1000);
         uart_puts(UART_ID, "RTU frame before treatment by library ..");
         for(int i = 0; i<MAX_LENGTH_W; i++){
             uart_puts(UART_ID, "printing the frame\n");
             printf(" %02X", receiveBuffer[i]);
+           
         }
 
         printf("\n"); 
         gpio_put(LED_PIN,0);
 
-        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
+        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, MAX_LENGTH_W);
         printErrorInfo(error);
         uart_puts(UART_ID, "RTU response from lib: ");
         printAndSendFrameResponse(error, &slave);

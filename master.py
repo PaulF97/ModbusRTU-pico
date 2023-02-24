@@ -21,7 +21,7 @@ while True:
     # sending = master.write_registers(5, "bonjour".encode(), 0x01)
     # time.sleep(1)
     # print("after write") 
-    receive = master.read_holding_registers(5, 7, 0x01)
+    receive = master.read_holding_registers(5, 2, 0x01)
     # print(receive)
     # time.sleep(1)
     print("read")

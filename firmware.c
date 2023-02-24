@@ -77,13 +77,11 @@ int main() {
 
     while(1){
         // reset receive frame and local variable
-
-    
-        memset(receiveBuffer, i_get, sizeof(receiveBuffer));
+       // memset(receiveBuffer, i_get, sizeof(receiveBuffer));
 
         i_get=0;
-        while ((single = getchar()) != '\n' && i_get < MAX_LENGTH_W) {
-            receiveBuffer[i_get] = single;
+        while ((single = getchar()) != '\n' && i_get<MAX_LENGTH_W) {
+            receiveBuffer[i_get] = (int) single;
             i_get++;
             gpio_put(LED_PIN,1);
             uart_puts(UART_ID, "LED on\n");
@@ -92,7 +90,7 @@ int main() {
         uart_puts(UART_ID, "outside while\n");
         receiveBuffer[i_get] = '\0';
 
-        sleep_ms(1000);
+        //sleep_ms(1000);
 
         // fgets(receiveBuffer, MAX_LENGTH, stdin);
 
@@ -100,12 +98,9 @@ int main() {
         uart_puts(UART_ID, "RTU frame before treatment by library ..");
         for(int i = 0; i<MAX_LENGTH_W; i++){
             uart_puts(UART_ID, "printing the frame\n");
-            if((receiveBuffer[i_get] != '\0' || receiveBuffer[i_get] != '\n')){
-                printf(" %02X", receiveBuffer[i]);
-            }else{
-                uart_puts(UART_ID, "problem in receiving the frame");
-            }
+            printf(" %02X", receiveBuffer[i]);
         }
+
         printf("\n"); 
         gpio_put(LED_PIN,0);
 
@@ -135,10 +130,10 @@ void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
     int length;
 	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
         printf("0x%02x ", modbusSlaveGetResponse(slave)[i]);
-        data[i] = modbusSlaveGetResponse(slave)[i];
+        // data[i] = modbusSlaveGetResponse(slave)[i];
     }
-    length = modbusSlaveGetResponseLength(slave); // get the length of frame
-    sprintf(data, "%d", length);
+    // length = modbusSlaveGetResponseLength(slave); // get the length of frame
+    // printf(data, "%d", length);
 
 }
 
@@ -160,6 +155,22 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 		args->function
 	);
 
+    // switch (args->query){
+
+	// 	// Pretend to allow all access
+	// 	case MODBUS_REGQ_R_CHECK:
+	// 	case MODBUS_REGQ_W_CHECK:
+	// 		result->exceptionCode = MODBUS_EXCEP_NONE;
+	// 		break;
+
+	// 	// Return 7 when reading
+	// 	case MODBUS_REGQ_R:
+	// 		result->value = 7;
+	// 		break;
+		
+	// 	default: break;
+	// }
+
 	switch (args->query){
 
 		case MODBUS_REGQ_R_CHECK:
@@ -176,6 +187,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 			break;
 
 		case MODBUS_REGQ_R:
+            result->value=7;
 			switch (args->type){
 				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
 				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
@@ -195,8 +207,11 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 			break;
 		default: break;
 	}
-	return MODBUS_OK;
+    
+    return MODBUS_OK;
+
 }
+	
 
 /*
 * check if modbus is initialized
@@ -205,6 +220,7 @@ void printErrorInfo(ModbusErrorInfo err)
 {
 	if (modbusIsOk(err)){
 		uart_puts(UART_ID, "FRAME IS CORRECT\n");
+  
     }else{
         uart_puts(UART_ID, "THERE IS A PROBLEM WITH THE FRAME\n");
 		printf("%s: it comes from the following element : %s",

@@ -10,6 +10,8 @@
 #include <string.h>
 #include <ctype.h>
 #include "pico/stdlib.h"
+#include "tusb_config.h"
+
 
 
 // MACROS
@@ -34,10 +36,18 @@
 #define UART_RX_PIN 5
 #define MAX_LENGTH_W 9
 
+#define debug(...) uart_puts(UART_ID, __VA_ARGS__);
+
+// uint8_t coils[REG_COUNT / 8];
+// uint16_t regs[REG_COUNT];
 
 
-uint8_t coils[REG_COUNT / 8];
-uint16_t regs[REG_COUNT];
+static uint16_t registers[REG_COUNT];
+static uint16_t inputRegisters[REG_COUNT];
+static uint8_t coils[REG_COUNT / 8];
+static uint8_t discreteInputs[REG_COUNT / 8];
+
+
 
 // prototype functions
 void init(const uint led_used);
@@ -52,9 +62,11 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 
 int main() {
 
+    registers[0] = 0xDEAD;
+    registers[1] = 0xBEEF;
+
     const uint LED_PIN = 25;
-    char *ptr;
-    char receiveBuffer[MAX_LENGTH_W];
+    char receiveBuffer[255];
     char betterArray[MAX_LENGTH_W];
     char single;
     int i_get = 0;
@@ -68,46 +80,37 @@ int main() {
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
-    printf("begining of program..");
+    debug("begining of program..\r\n");
 
-
+   
 
     error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
-    assert(modbusIsOk(error) && "modbusSlaveInit() failed!");
+    if(!modbusIsOk(error))
+        debug("modbusSlaveInit() failed!");
 
+    //uint8_t *ptr = receiveBuffer;
+
+    fflush(stdin);
 
     while(1){
-
-        //memset(receiveBuffer, i_get, sizeof(receiveBuffer));
+        
         i_get=0;
-        // while ((single = getchar()) != '\n' && i_get<MAX_LENGTH_W) {
-        //     receiveBuffer[i_get] = single;
-        //     i_get++;
-        //     gpio_put(LED_PIN,1);
-        //     uart_puts(UART_ID, "LED on\n");
-        // }
-
-        // uart_puts(UART_ID, "outside while\n");
-        // receiveBuffer[i_get] = '\0';
-
         fgets(receiveBuffer, MAX_LENGTH_W, stdin);
+        char str[50];
+
+        debug("Reading hex data from stdin...\n")
+
+        sprintf(str, "data=%2X\n\r", receiveBuffer);
+        debug(str);
+        //*ptr++ = fgetc(stdin);
        // sleep_ms(1000);
-        uart_puts(UART_ID, "RTU frame before treatment by library ..");
-        for(int i = 0; i<MAX_LENGTH_W; i++){
-            uart_puts(UART_ID, "printing the frame\n");
-           // if((receiveBuffer[i_get] != '\0' || receiveBuffer[i_get] != '\n')){
-                printf(" %02X", receiveBuffer[i]);
-         //   }
-        }
 
-        printf("\n"); 
-        gpio_put(LED_PIN,0);
-
-        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, MAX_LENGTH_W);
+        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
         printErrorInfo(error);
-        uart_puts(UART_ID, "RTU response from lib: ");
-        printAndSendFrameResponse(error, &slave);
-        printf("\n");
+        if(modbusIsOk(error))
+        {
+            printAndSendFrameResponse(error, &slave);
+        }
     }
       return 0;
 }
@@ -115,6 +118,7 @@ int main() {
 
 
 void init(const uint led_used){
+    //tusb_init();
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(led_used);
@@ -128,100 +132,76 @@ void init(const uint led_used){
 void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
     char *data;
     int length;
-	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
-        printf("0x%02x ", modbusSlaveGetResponse(slave)[i]);
+	//for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
+        //printf("%02x", modbusSlaveGetResponse(slave)[i]);
         // data[i] = modbusSlaveGetResponse(slave)[i];
-    }
+    //}
+    data = modbusSlaveGetResponse(slave);
+    length = modbusSlaveGetResponseLength(slave);
+    char str[50];
+    sprintf(str, "data=%.6X\n\rlength=%d\n\r", data, length);
+    debug(str);
     // length = modbusSlaveGetResponseLength(slave); // get the length of frame
     // printf(data, "%d", length);
-
 }
 
 /*
 * goes in this callback when a frame is received
 */
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
-	printf(
-		"Register query:\n"
-		"\tquery: %s\n"
-		"\t type: %s\n"
-		"\t   id: %d\n"
-		"\tvalue: %c\n"
-		"\t  fun: %d\n",
-		modbusRegisterQueryStr(args->query),
-		modbusDataTypeStr(args->type),
-		args->index,
-		args->value,
-		args->function
-	);
-
-    // switch (args->query){
-
-	// 	// Pretend to allow all access
-	// 	case MODBUS_REGQ_R_CHECK:
-	// 	case MODBUS_REGQ_W_CHECK:
-	// 		result->exceptionCode = MODBUS_EXCEP_NONE;
-	// 		break;
-
-	// 	// Return 7 when reading
-	// 	case MODBUS_REGQ_R:
-	// 		result->value = 7;
-	// 		break;
-		
-	// 	default: break;
-	// }
-
-    uart_puts(UART_ID, "inside callback");
-
-	switch (args->query){
-    uart_puts(UART_ID, "inside switch");
-
-		case MODBUS_REGQ_R_CHECK:
-        uart_puts(UART_ID, "MODBUS_REGQ_R_CHECK");
-			if (args->index < REG_COUNT)
-				result->exceptionCode = MODBUS_EXCEP_NONE;
-			else	
-				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
-			break;
-		case MODBUS_REGQ_W_CHECK:
-            uart_puts(UART_ID, "MODBUS_REGQ_W_CHECK");
-			if (args->index < REG_COUNT - 2)
-				result->exceptionCode = MODBUS_EXCEP_NONE;
-			else	
-				result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
-			break;
-
-		case MODBUS_REGQ_R:
-        uart_puts(UART_ID, "MODBUS_REGQ_REGQ_R");
-           // result->value=7;
-			switch (args->type){
-				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
-				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
-				case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
-				case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
-			}
-			break;
+	//printf(
+		// "Register query:\r\n"
+		// "\tquery: %s\r\n"
+		// "\t type: %s\r\n"
+		// "\t   id: %d\r\n"
+		// "\tvalue: %c\r\n"
+		// "\t  fun: %d\r\n",
+	//	modbusRegisterQueryStr(args->query),
+	//	modbusDataTypeStr(args->type),    // Always return MODBUS_OK
+	//	args->index,
+	//	args->value,
+	//	args->function
+	//);
 
 
-		case MODBUS_REGQ_W:
-            uart_puts(UART_ID, "MODBUS_REGQ_REGQ_W");
-			switch (args->type)
-			{
-				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
-				case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
-				default: abort(); break;
-			}
-			break;
-		default: break;
-	}
-    
+    debug("inside callback");
+    switch (args->query)
+    {
+        // R/W access check
+        case MODBUS_REGQ_R_CHECK:
+        case MODBUS_REGQ_W_CHECK:
+            result->exceptionCode = args->index < REG_COUNT ? MODBUS_EXCEP_NONE : MODBUS_EXCEP_ILLEGAL_ADDRESS;
+            break;
+ 
+        // Read register        
+        case MODBUS_REGQ_R:
+            switch (args->type)
+            {
+                case MODBUS_HOLDING_REGISTER: result->value = registers[args->index]; break;
+                case MODBUS_INPUT_REGISTER:   result->value = inputRegisters[args->index]; break;
+                case MODBUS_COIL:             result->value = modbusMaskRead(coils, args->index); break;
+                case MODBUS_DISCRETE_INPUT:   result->value = modbusMaskRead(discreteInputs, args->index); break;
+            }
+            break;
+ 
+        // Write register
+        case MODBUS_REGQ_W:
+            switch (args->type)
+            {
+                case MODBUS_HOLDING_REGISTER: registers[args->index] = args->value; break;
+                case MODBUS_COIL:             modbusMaskWrite(coils, args->index, args->value); break;
+                default:                      break;
+            }
+            break;
+    }
+ 
     return MODBUS_OK;
 
 }
 	
 ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
-    uart_puts(UART_ID, "in error register callback");
-	printf("Slave exception %s (function %d)\n", modbusExceptionCodeStr(code), function);
+    debug("in error register callback\r\n");
+	//printf("Slave exception %s (function %d)\r\n", modbusExceptionCodeStr(code), function);
 	return MODBUS_OK;
 }
 
@@ -232,13 +212,13 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 void printErrorInfo(ModbusErrorInfo err)
 {
 	if (modbusIsOk(err)){
-		uart_puts(UART_ID, "FRAME IS CORRECT\n");
+		debug("FRAME IS CORRECT\r\n");
   
     }else{
-        uart_puts(UART_ID, "THERE IS A PROBLEM WITH THE FRAME\n");
-		printf("%s: it comes from the following element : %s",
-			modbusErrorSourceStr(modbusGetErrorSource(err)),
-			modbusErrorStr(modbusGetErrorCode(err)));
+        debug("THERE IS A PROBLEM WITH THE FRAME\r\n");
+		//printf("%s: it comes from the following element : %s",
+		debug(modbusErrorSourceStr(modbusGetErrorSource(err)));
+		debug(modbusErrorStr(modbusGetErrorCode(err)));
     }
 }
 
@@ -266,16 +246,16 @@ void decodeFrame(char reception[], int size, int sizeOfDataFrame){
 
     for(int i = 7; i < byteCount + 7; i++){
         data[j] = reception[i];
-        printf(" %02X", data[j]);
+        //printf(" %02X", data[j]);
         j++;
     }
 
    // hexToASCII(data);
 
-    printf("\n");
-    printf("frame format : \n");
-    printf (" slave address -- function code -- starting address -- quantity -- byte count -- data -- CRC \n");
-    printf ("The value of slave ID is %02X \n the value of function code is %02X \n the value of starting address is %02X \n the value of quantity is %02X \n  the value of byte count is %02X \n the CRC bytes are %02X and %02X \n", slaveID, functionCode, addressStart, sizeOfData, byteCount, checksum[0], checksum[1]);
+    //printf("\r\n");
+    //printf("frame format : \r\n");
+    //printf (" slave address -- function code -- starting address -- quantity -- byte count -- data -- CRC \r\n");
+    //printf ("The value of slave ID is %02X \r\n the value of function code is %02X \r\n the value of starting address is %02X \r\n the value of quantity is %02X \r\n  the value of byte count is %02X \r\n the CRC bytes are %02X and %02X \r\n", slaveID, functionCode, addressStart, sizeOfData, byteCount, checksum[0], checksum[1]);
     sleep_ms(2000);
 }
 
@@ -287,11 +267,11 @@ void hexToASCII(char usefulData[]){
         sscanf(&usefulData[i], "%2x", &dataInASCII[i/2]);
     }
 
-    printf("data in interpretable String : ");
+    //printf("data in interpretable String : ");
     for(int i = 0; i< sizeof(dataInASCII); i++){
-        printf("%s", dataInASCII[i]);
+        //printf("%s", dataInASCII[i]);
     }
-    printf("\n");
+    //printf("\r\n");
 
 
 }

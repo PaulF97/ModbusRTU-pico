@@ -13,6 +13,7 @@
 #define LIGHTMODBUS_SLAVE_FULL
 #define LIGHTMODBUS_DEBUG
 #define LIGHTMODBUS_IMPL
+#define debug_uart(...) uart_puts(UART_ID, __VA_ARGS__);
 #include "liblightmodbus/include/lightmodbus/lightmodbus.h"
 
 #ifndef REG_COUNT
@@ -57,6 +58,7 @@ int main() {
     char betterArray[MAX_LENGTH_W];
     char single;
     int i_get = 0;
+    char str[50];
     ModbusSlave slave;
     ModbusErrorInfo error;
 
@@ -67,7 +69,7 @@ int main() {
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
-    printf("begining of program..");
+    debug_uart("begining of program..\r\n");
 
 
 
@@ -87,34 +89,34 @@ int main() {
             receiveBuffer[i_get] = single;
             i_get++;
             gpio_put(LED_PIN,1);
-            uart_puts(UART_ID, "LED on\n");
+            debug_uart("LED on\r\n");
         }
 
-        uart_puts(UART_ID, "outside while\n");
+        debug_uart("outside while\r\n");
         receiveBuffer[i_get] = '\0';
+        sprintf(str, "data%02X\r\n", receiveBuffer);
+        debug_uart(str);
 
         sleep_ms(1000);
 
         // fgets(receiveBuffer, MAX_LENGTH, stdin);
 
         // printf frame
-        uart_puts(UART_ID, "RTU frame before treatment by library ..");
+        debug_uart("RTU frame before treatment by library ..\r\n");
         for(int i = 0; i<MAX_LENGTH_W; i++){
-            uart_puts(UART_ID, "printing the frame\n");
+            debug_uart("printing the frame\r\n");
             if((receiveBuffer[i_get] != '\0' || receiveBuffer[i_get] != '\n')){
                 printf(" %02X", receiveBuffer[i]);
             }else{
-                uart_puts(UART_ID, "problem in receiving the frame");
+                debug_uart("problem in receiving the frame\r\n");
             }
         }
-        printf("\n"); 
         gpio_put(LED_PIN,0);
 
         error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
         printErrorInfo(error);
-        uart_puts(UART_ID, "RTU response from lib: ");
+        debug_uart("RTU response from lib:\r\n ");
         printAndSendFrameResponse(error, &slave);
-        printf("\n");
 
     }
 
@@ -161,19 +163,19 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 		args->function
 	);
 
-    uart_puts(UART_ID, "inside callback");
+    debug_uart("inside callback\r\n");
 	switch (args->query){
-    uart_puts(UART_ID, "inside switch");
+    debug_uart("inside switch\r\n");
 
 		case MODBUS_REGQ_R_CHECK:
-            uart_puts(UART_ID, "MODBUS_REGQ_R_CHECK");
+            debug_uart("MODBUS_REGQ_R_CHECK\r\n");
 			if (args->index < REG_COUNT)
 				result->exceptionCode = MODBUS_EXCEP_NONE;
 			else	
 				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
 			break;
 		case MODBUS_REGQ_W_CHECK:
-        uart_puts(UART_ID, "MODBUS_REGQ_W_CHECK");
+        debug_uart("MODBUS_REGQ_W_CHECK\r\n");
 			if (args->index < REG_COUNT - 2)
 				result->exceptionCode = MODBUS_EXCEP_NONE;
 			else	
@@ -181,7 +183,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 			break;
 
 		case MODBUS_REGQ_R:
-            uart_puts(UART_ID, "MODBUS_REGQ_R");
+            debug_uart("MODBUS_REGQ_R\r\n");
 			switch (args->type){
 				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
 				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
@@ -192,7 +194,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 
 
 		case MODBUS_REGQ_W:
-            uart_puts(UART_ID, "MODBUS_REGQ_W");
+            debug_uart("MODBUS_REGQ_W\r\n");
 			switch (args->type)
 			{
 				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
@@ -216,9 +218,9 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 void printErrorInfo(ModbusErrorInfo err)
 {
 	if (modbusIsOk(err)){
-		uart_puts(UART_ID, "FRAME IS CORRECT\n");
+		debug_uart("FRAME IS CORRECT\r\n");
     }else{
-        uart_puts(UART_ID, "THERE IS A PROBLEM WITH THE FRAME\n");
+        debug_uart( "THERE IS A PROBLEM WITH THE FRAME\r\n");
 		printf("%s: it comes from the following element : %s",
 			modbusErrorSourceStr(modbusGetErrorSource(err)),
 			modbusErrorStr(modbusGetErrorCode(err)));
@@ -255,9 +257,9 @@ void decodeFrame(char reception[], int size, int sizeOfDataFrame){
 
    // hexToASCII(data);
 
-    printf("\n");
-    printf("frame format : \n");
-    printf (" slave address -- function code -- starting address -- quantity -- byte count -- data -- CRC \n");
+    debug_uart("\n");
+    debug_uart("frame format : \n");
+    debug_uart (" slave address -- function code -- starting address -- quantity -- byte count -- data -- CRC \n");
     printf ("The value of slave ID is %02X \n the value of function code is %02X \n the value of starting address is %02X \n the value of quantity is %02X \n  the value of byte count is %02X \n the CRC bytes are %02X and %02X \n", slaveID, functionCode, addressStart, sizeOfData, byteCount, checksum[0], checksum[1]);
     sleep_ms(2000);
 }

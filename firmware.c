@@ -4,21 +4,30 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+
+// LIBRARY
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "pico/stdlib.h"
 
 
+// MACROS
 #define LIGHTMODBUS_SLAVE_FULL
 #define LIGHTMODBUS_DEBUG
 #define LIGHTMODBUS_IMPL
+
+
+// LIGTHMODBUS LIB
 #include "liblightmodbus/include/lightmodbus/lightmodbus.h"
+
 
 #ifndef REG_COUNT
 #define REG_COUNT 16
 #endif
 
+
+// CONSTANTS
 #define UART_ID uart1
 #define BAUDRATE 9600
 #define UART_TX_PIN 4
@@ -26,13 +35,6 @@
 #define MAX_LENGTH_W 9
 
 
-typedef enum StateOfSlave
-{
-	STATE_IDLE,
-	STATE_RECEIVING,
-	STATE_WAITING,
-	STATE_WAITING_INVALID,
-} StateOfSlave;
 
 uint8_t coils[REG_COUNT / 8];
 uint16_t regs[REG_COUNT];
@@ -73,7 +75,6 @@ int main() {
     error = modbusSlaveInit(&slave, registerCallback, NULL, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
     assert(modbusIsOk(error) && "modbusSlaveInit() failed!");
 
-    StateOfSlave state = STATE_IDLE;
 
     while(1){
 
@@ -112,6 +113,9 @@ int main() {
 
       return 0;
 }
+
+
+
 void init(const uint led_used){
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
@@ -153,58 +157,65 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 		args->function
 	);
 
-    switch (args->query){
+    // switch (args->query){
 
-		// Pretend to allow all access
-		case MODBUS_REGQ_R_CHECK:
-		case MODBUS_REGQ_W_CHECK:
-			result->exceptionCode = MODBUS_EXCEP_NONE;
-			break;
-
-		// Return 7 when reading
-		case MODBUS_REGQ_R:
-			result->value = 7;
-			break;
-		
-		default: break;
-	}
-
-	// switch (args->query){
-
+	// 	// Pretend to allow all access
 	// 	case MODBUS_REGQ_R_CHECK:
-	// 		if (args->index < REG_COUNT)
-	// 			result->exceptionCode = MODBUS_EXCEP_NONE;
-	// 		else	
-	// 			result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
-	// 		break;
 	// 	case MODBUS_REGQ_W_CHECK:
-	// 		if (args->index < REG_COUNT - 2)
-	// 			result->exceptionCode = MODBUS_EXCEP_NONE;
-	// 		else	
-	// 			result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
+	// 		result->exceptionCode = MODBUS_EXCEP_NONE;
 	// 		break;
 
+	// 	// Return 7 when reading
 	// 	case MODBUS_REGQ_R:
-    //         result->value=7;
-	// 		switch (args->type){
-	// 			case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
-	// 			case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
-	// 			case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
-	// 			case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
-	// 		}
+	// 		result->value = 7;
 	// 		break;
-
-
-	// 	case MODBUS_REGQ_W:
-	// 		switch (args->type)
-	// 		{
-	// 			case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
-	// 			case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
-	// 			default: abort(); break;
-	// 		}
-	// 		break;
+		
 	// 	default: break;
 	// }
+
+    uart_puts(UART_ID, "inside callback");
+
+	switch (args->query){
+    uart_puts(UART_ID, "inside switch");
+
+		case MODBUS_REGQ_R_CHECK:
+        uart_puts(UART_ID, "MODBUS_REGQ_R_CHECK");
+			if (args->index < REG_COUNT)
+				result->exceptionCode = MODBUS_EXCEP_NONE;
+			else	
+				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
+			break;
+		case MODBUS_REGQ_W_CHECK:
+            uart_puts(UART_ID, "MODBUS_REGQ_W_CHECK");
+			if (args->index < REG_COUNT - 2)
+				result->exceptionCode = MODBUS_EXCEP_NONE;
+			else	
+				result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
+			break;
+
+		case MODBUS_REGQ_R:
+        uart_puts(UART_ID, "MODBUS_REGQ_REGQ_R");
+           // result->value=7;
+			switch (args->type){
+				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
+				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
+				case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
+				case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
+			}
+			break;
+
+
+		case MODBUS_REGQ_W:
+            uart_puts(UART_ID, "MODBUS_REGQ_REGQ_W");
+			switch (args->type)
+			{
+				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
+				case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
+				default: abort(); break;
+			}
+			break;
+		default: break;
+	}
     
     return MODBUS_OK;
 

@@ -160,15 +160,19 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 		args->function
 	);
 
+    uart_puts(UART_ID, "inside callback");
 	switch (args->query){
+    uart_puts(UART_ID, "inside switch");
 
 		case MODBUS_REGQ_R_CHECK:
+            uart_puts(UART_ID, "MODBUS_REGQ_R_CHECK");
 			if (args->index < REG_COUNT)
 				result->exceptionCode = MODBUS_EXCEP_NONE;
 			else	
 				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
 			break;
 		case MODBUS_REGQ_W_CHECK:
+        uart_puts(UART_ID, "MODBUS_REGQ_W_CHECK");
 			if (args->index < REG_COUNT - 2)
 				result->exceptionCode = MODBUS_EXCEP_NONE;
 			else	
@@ -176,6 +180,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 			break;
 
 		case MODBUS_REGQ_R:
+            uart_puts(UART_ID, "MODBUS_REGQ_R");
 			switch (args->type){
 				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
 				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
@@ -186,6 +191,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 
 
 		case MODBUS_REGQ_W:
+            uart_puts(UART_ID, "MODBUS_REGQ_W");
 			switch (args->type)
 			{
 				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;

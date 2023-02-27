@@ -43,13 +43,12 @@ uint16_t regs[REG_COUNT];
 void init(const uint led_used);
 void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
-ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
-ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code);
 void printErrorInfo(ModbusErrorInfo err);
 void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
 
-
-
+// callback prototypes
+ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
+ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code);
 
 int main() {
 
@@ -221,6 +220,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 }
 	
 ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
+    uart_puts(UART_ID, "in error register callback");
 	printf("Slave exception %s (function %d)\n", modbusExceptionCodeStr(code), function);
 	return MODBUS_OK;
 }

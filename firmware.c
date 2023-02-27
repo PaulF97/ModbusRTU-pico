@@ -44,6 +44,7 @@ void init(const uint led_used);
 void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
+ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code);
 void printErrorInfo(ModbusErrorInfo err);
 void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
 
@@ -72,7 +73,7 @@ int main() {
 
 
 
-    error = modbusSlaveInit(&slave, registerCallback, NULL, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
+    error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
     assert(modbusIsOk(error) && "modbusSlaveInit() failed!");
 
 
@@ -108,9 +109,7 @@ int main() {
         uart_puts(UART_ID, "RTU response from lib: ");
         printAndSendFrameResponse(error, &slave);
         printf("\n");
-
     }
-
       return 0;
 }
 
@@ -221,6 +220,11 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 
 }
 	
+ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
+	printf("Slave exception %s (function %d)\n", modbusExceptionCodeStr(code), function);
+	return MODBUS_OK;
+}
+
 
 /*
 * check if modbus is initialized

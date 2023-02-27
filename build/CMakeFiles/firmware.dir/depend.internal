@@ -200,6 +200,7 @@ CMakeFiles/firmware.dir/firmware.c.obj
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave.impl.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave_func.h
  /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave_func.impl.h
+ /home/vm/Documents/testClientServeur/firmware/tusb_config.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/boards/include/boards/pico.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico/assert.h

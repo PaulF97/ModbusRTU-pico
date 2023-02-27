@@ -199,6 +199,7 @@ CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/sl
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave.impl.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave_func.h
 CMakeFiles/firmware.dir/firmware.c.obj: ../liblightmodbus/include/lightmodbus/slave_func.impl.h
+CMakeFiles/firmware.dir/firmware.c.obj: ../tusb_config.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/boards/include/boards/pico.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico/assert.h

@@ -15,6 +15,8 @@ ctype.h
 -
 pico/stdlib.h
 /home/vm/Documents/testClientServeur/firmware/pico/stdlib.h
+tusb_config.h
+/home/vm/Documents/testClientServeur/firmware/tusb_config.h
 liblightmodbus/include/lightmodbus/lightmodbus.h
 /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/lightmodbus.h
 
@@ -91,6 +93,8 @@ slave_func.h
 /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave_func.h
 slave.h
 /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave.h
+
+/home/vm/Documents/testClientServeur/firmware/tusb_config.h
 
 /home/vm/Documents/testClientServeur/pico-sdk/src/boards/include/boards/pico.h
 

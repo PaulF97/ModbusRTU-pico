@@ -20,7 +20,7 @@ while True:
 
     #print("before write")
     # print("after write") 
-    receive = master.read_holding_registers(address=0, count=2, slave=0x01)
+    receive = master.read_holding_registers(address=5, count=2, slave=0x01)
     print(receive)
     #time.sleep(1)
     #print("read")

@@ -86,7 +86,7 @@ int main() {
 
     error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
     if(!modbusIsOk(error))
-        debug("modbusSlaveInit() failed!");
+        debug("modbusSlaveInit() failed!\n\r");
 
     //uint8_t *ptr = receiveBuffer;
 
@@ -98,14 +98,14 @@ int main() {
         fgets(receiveBuffer, MAX_LENGTH_W, stdin);
         char str[50];
 
-        debug("Reading hex data from stdin...\n")
+        debug("Reading hex data from stdin...\n\r")
 
-        sprintf(str, "data=%2X\n\r", receiveBuffer);
+        sprintf(str, "data=%.2X\n\r", receiveBuffer);
         debug(str);
         //*ptr++ = fgetc(stdin);
-       // sleep_ms(1000);
+        sleep_ms(1000);
 
-        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
+        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, MAX_LENGTH_W);
         printErrorInfo(error);
         if(modbusIsOk(error))
         {
@@ -164,7 +164,7 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 	//);
 
 
-    debug("inside callback");
+    debug("inside callback\n\r");
     switch (args->query)
     {
         // R/W access check

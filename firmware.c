@@ -34,7 +34,6 @@
 #define BAUDRATE 9600
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
-#define MAX_LENGTH_W 9
 
 #define debug(...) uart_puts(UART_ID, __VA_ARGS__);
 
@@ -65,11 +64,13 @@ int main() {
     registers[0] = 0xDEAD;
     registers[1] = 0xBEEF;
 
+    int length = 9;
+    int i_get=0;
     const uint LED_PIN = 25;
     char receiveBuffer[255];
-    char betterArray[MAX_LENGTH_W];
+    char betterArray[length];
     char single;
-    int i_get = 0;
+    
     ModbusSlave slave;
     ModbusErrorInfo error;
 
@@ -95,23 +96,23 @@ int main() {
     while(1){
         
         i_get=0;
-        fgets(receiveBuffer, MAX_LENGTH_W, stdin);
-        char str[50];
-
         debug("Reading hex data from stdin...\n\r")
 
-        sprintf(str, "data=%.2X\n\r", receiveBuffer);
-        debug(str);
-        //*ptr++ = fgetc(stdin);
-        sleep_ms(1000);
+        fgets(receiveBuffer, length, stdin);
+        char str[50];
 
-        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, MAX_LENGTH_W);
+        for(int i = 0; i<length; i++){
+            sprintf(str, "index[%d] data=%.2X\n\r",i, receiveBuffer[i]);
+            debug(str);
+        }
+    
+        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
         printErrorInfo(error);
-        if(modbusIsOk(error))
-        {
+        if(modbusIsOk(error)){
             printAndSendFrameResponse(error, &slave);
         }
     }
+
       return 0;
 }
 
@@ -132,17 +133,19 @@ void init(const uint led_used){
 void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
     char *data;
     int length;
-	//for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
-        //printf("%02x", modbusSlaveGetResponse(slave)[i]);
-        // data[i] = modbusSlaveGetResponse(slave)[i];
-    //}
-    data = modbusSlaveGetResponse(slave);
-    length = modbusSlaveGetResponseLength(slave);
     char str[50];
-    sprintf(str, "data=%.6X\n\rlength=%d\n\r", data, length);
+	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
+        data[i] = modbusSlaveGetResponse(slave)[i];
+        sprintf(str, "index [%d] : data =%.2X\n\r",i, data[i]);
+        debug(str);
+    }
+    length = modbusSlaveGetResponseLength(slave);
+    sprintf(str, "length=%d\n\r", length);
     debug(str);
-    // length = modbusSlaveGetResponseLength(slave); // get the length of frame
-    // printf(data, "%d", length);
+    // send data to the USB line
+    for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
+        printf("%.2X", data[i]);
+    }
 }
 
 /*
@@ -200,7 +203,10 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 }
 	
 ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
+    // char exceptionCode[15];
     debug("in error register callback\r\n");
+    // sprintf(exceptionCode, "slave exception %s\r\n", modbusExceptionCodeStr(code));
+    // debug(exceptionCode);
 	//printf("Slave exception %s (function %d)\r\n", modbusExceptionCodeStr(code), function);
 	return MODBUS_OK;
 }
@@ -212,10 +218,10 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 void printErrorInfo(ModbusErrorInfo err)
 {
 	if (modbusIsOk(err)){
-		debug("FRAME IS CORRECT\r\n");
+		debug("INITIALIZATION IS OKAY\r\n");
   
     }else{
-        debug("THERE IS A PROBLEM WITH THE FRAME\r\n");
+        debug("THERE IS A PROBLEM WITH THE INIT OF\r\n");
 		//printf("%s: it comes from the following element : %s",
 		debug(modbusErrorSourceStr(modbusGetErrorSource(err)));
 		debug(modbusErrorStr(modbusGetErrorCode(err)));

@@ -35,6 +35,20 @@
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
 
+
+// CODE ERRORS OF MODBUS
+#define IllegalFunction 0x01
+#define IllegalDataAddress 0x02 
+#define IllegalDataValue 0x03
+#define SlaveDeviceFailure 0x04
+#define ACK 0x05
+#define SlaveDeviceBusy 0x06 
+#define NegativeAcknowledge 0x07
+#define MemoryParityError 0x08
+#define GatewayPathUnavailable 0x0A
+#define GatewayTargetDeviceFailedtoRespond 0x0B 
+
+// DEBUG
 #define debug(...) uart_puts(UART_ID, __VA_ARGS__);
 
 // uint8_t coils[REG_COUNT / 8];
@@ -54,6 +68,7 @@ void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
 void printErrorInfo(ModbusErrorInfo err);
 void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
+void determinFunctionCodeError (char *responseLib);
 
 // callback prototypes
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
@@ -142,10 +157,11 @@ void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
     length = modbusSlaveGetResponseLength(slave);
     sprintf(str, "length=%d\n\r", length);
     debug(str);
-    // send data to the USB line
-    for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
-        printf("%.2X", data[i]);
-    }
+    determinFunctionCodeError(data);
+    // // send data to the USB line
+    // for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
+    //     printf("%.2X", data[i]);
+    // }
 }
 
 /*
@@ -203,12 +219,11 @@ ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCall
 }
 	
 ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
-    // char exceptionCode[15];
+    char exceptionInfo[15];
     debug("in error register callback\r\n");
-    // sprintf(exceptionCode, "slave exception %s\r\n", modbusExceptionCodeStr(code));
-    // debug(exceptionCode);
-	//printf("Slave exception %s (function %d)\r\n", modbusExceptionCodeStr(code), function);
+    debug(modbusExceptionCodeStr(code)); // send the error cause to the debug
 	return MODBUS_OK;
+
 }
 
 
@@ -218,7 +233,7 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 void printErrorInfo(ModbusErrorInfo err)
 {
 	if (modbusIsOk(err)){
-		debug("INITIALIZATION IS OKAY\r\n");
+		debug("FRAME IS SEND TO THE LIB \r\n");
   
     }else{
         debug("THERE IS A PROBLEM WITH THE INIT OF\r\n");
@@ -228,6 +243,45 @@ void printErrorInfo(ModbusErrorInfo err)
     }
 }
 
+void determinFunctionCodeError (char *responseLib){
+
+
+    switch (responseLib[2])
+    {
+    case IllegalFunction:
+        debug("FUNCTION CODE 1\r\n");
+        break;
+    case IllegalDataAddress:
+        debug("FUNCTION CODE 2\r\n");
+        break;
+    case IllegalDataValue:
+        debug("FUNCTION CODE 3\r\n");
+        break;
+    case SlaveDeviceFailure:
+        debug("FUNCTION CODE 4\r\n");
+        break;
+    case ACK:
+        debug("FUNCTION CODE 5\r\n");
+        break;
+    case SlaveDeviceBusy:
+        debug("FUNCTION CODE 6\r\n");
+        break;
+    case NegativeAcknowledge:
+        debug("FUNCTION CODE 7\r\n");
+        break;
+    case MemoryParityError:
+        debug("FUNCTION CODE 8\r\n");
+        break;
+    case GatewayPathUnavailable:
+        debug("FUNCTION CODE 10\r\n");
+        break;
+    case GatewayTargetDeviceFailedtoRespond:
+        debug("FUNCTION CODE 11\r\n");
+        break;
+    default:
+        break;
+    }
+}
 /*
 * https://rapidscada.net/modbus/
 */

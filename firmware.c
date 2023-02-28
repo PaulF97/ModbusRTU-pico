@@ -49,8 +49,10 @@ void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
 
 
 
-
-int main() {
+// Enter point of the program
+// 
+int main()
+{
 
     const uint LED_PIN = 25;
     char *ptr;
@@ -62,6 +64,7 @@ int main() {
     ModbusSlave slave;
     ModbusErrorInfo error;
 
+    // Init of the board
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -69,20 +72,21 @@ int main() {
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
+    // Debug
     debug_uart("begining of program..\r\n");
 
-
-
+    // 
     error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
     assert(modbusIsOk(error) && "modbusSlaveInit() failed!");
 
     StateOfSlave state = STATE_IDLE;
 
-    while(1){
+    while(1)
+    {
         // reset receive frame and local variable
 
     
-        memset(receiveBuffer, i_get, sizeof(receiveBuffer));
+        // memset(receiveBuffer, i_get, sizeof(receiveBuffer));
 
         i_get=0;
         while ((single = getchar()) != '\n' && i_get < MAX_LENGTH_W) {
@@ -149,19 +153,21 @@ void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
 * goes in this callback when a frame is received
 */
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
-	printf(
-		"Register query:\n"
-		"\tquery: %s\n"
-		"\t type: %s\n"
-		"\t   id: %d\n"
-		"\tvalue: %c\n"
-		"\t  fun: %d\n",
-		modbusRegisterQueryStr(args->query),
-		modbusDataTypeStr(args->type),
-		args->index,
-		args->value,
-		args->function
-	);
+	// debug_uart(
+	// 	"Register query:\n"
+	// 	"\tquery: %s\n"
+	// 	"\t type: %s\n"
+	// 	"\t   id: %d\n"
+	// 	"\tvalue: %c\n"
+	// 	"\t  fun: %d\n",
+	// 	modbusRegisterQueryStr(args->query),
+	// 	modbusDataTypeStr(args->type),
+	// 	args->index,
+	// 	args->value,
+	// 	args->function
+	// );
+
+   
 
     debug_uart("inside callback\r\n");
 	switch (args->query){

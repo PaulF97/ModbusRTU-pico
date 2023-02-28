@@ -15,12 +15,12 @@ print(master)
 print("\033[92m-------------------client connected----------------------\033[0m")
 
 
-while True:
 
-    print("before write")
-    sending = master.write_registers(5, "bonjour".encode(), 0x01)
-    time.sleep(1)
-    print("after write") 
+# while True:
+print("before write")
+sending = master.write_registers(5, "bonjour".encode(), 0x01)
+# time.sleep(1)
+print("after write") 
     # receive = master.read_holding_registers(5, 7, 0x01)
     # time.sleep(1)
     # print("read")

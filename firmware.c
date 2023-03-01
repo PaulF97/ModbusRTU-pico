@@ -76,8 +76,6 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 
 int main() {
 
-    registers[0] = 0xDEAD;
-    registers[1] = 0xBEEF;
 
     int length = 9;
     int i_get=0;
@@ -104,16 +102,31 @@ int main() {
     if(!modbusIsOk(error))
         debug("modbusSlaveInit() failed!\n\r");
 
-    //uint8_t *ptr = receiveBuffer;
 
-    fflush(stdin);
-
+    single = getchar();
     while(1){
         
         i_get=0;
         debug("Reading hex data from stdin...\n\r")
-
-        fgets(receiveBuffer, length, stdin);
+        while ((single = getchar()) != EOF) {
+            debug("inside.\r\n"); 
+            debug("processing \r\n");
+            receiveBuffer[i_get] = single;
+            error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get+1);
+            if(modbusIsOk(error)){ // parse until there is a correct frame, waiting for CRC bytes..
+                debug("break\r\n");
+                break;
+                i_get=0;
+            }else{
+                debug("checking the data... \r\n");
+                char strDebug[250];
+                sprintf(strDebug, "value of i %d, value of single %.2X value of buffer %.2X value of modbus check %d \r\n", i_get, single, receiveBuffer[i_get], modbusIsOk(error));
+                debug(strDebug);
+                debug("test \r\n");
+            }
+            i_get++;
+        }
+        // fgets(receiveBuffer, length, stdin);
         char str[50];
 
         for(int i = 0; i<length; i++){
@@ -121,7 +134,7 @@ int main() {
             debug(str);
         }
     
-        error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
+       // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
         printErrorInfo(error);
         if(modbusIsOk(error)){
             printAndSendFrameResponse(error, &slave);

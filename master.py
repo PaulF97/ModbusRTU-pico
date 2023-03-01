@@ -14,10 +14,8 @@ master.connect()
 print(master)
 print("\033[92m-------------------client connected----------------------\033[0m")
 
-while True:
-    receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-    print(receive.__dict__)
-    time.sleep(1)
-
-    
-master.close()
+receive = master.read_holding_registers(address=5, count=2, slave=0x01)
+print(receive.__dict__)
+time.sleep(1)
+ 
+# master.close()

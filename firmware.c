@@ -80,9 +80,9 @@ int main() {
     int length = 9;
     int i_get=0;
     const uint LED_PIN = 25;
-    char receiveBuffer[255];
+    uint8_t receiveBuffer[255];
     char betterArray[length];
-    char single;
+    uint8_t single;
     
     ModbusSlave slave;
     ModbusErrorInfo error;

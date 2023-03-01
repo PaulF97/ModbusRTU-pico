@@ -2032,14 +2032,14 @@ Disassembly of section .text:
 10001090:	4694      	mov	ip, r2
 10001092:	33ff      	adds	r3, #255	; 0xff
 10001094:	4463      	add	r3, ip
-10001096:	001d      	movs	r5, r3
+10001096:	001e      	movs	r6, r3
 10001098:	2300      	movs	r3, #0
 1000109a:	4698      	mov	r8, r3
 1000109c:	f004 fcb0 	bl	10005a00 <__wrap_getchar>
 100010a0:	b2c3      	uxtb	r3, r0
 100010a2:	4699      	mov	r9, r3
 100010a4:	4b96      	ldr	r3, [pc, #600]	; (10001300 <main+0x344>)
-100010a6:	0006      	movs	r6, r0
+100010a6:	0005      	movs	r5, r0
 100010a8:	2202      	movs	r2, #2
 100010aa:	5e9b      	ldrsh	r3, [r3, r2]
 100010ac:	2020      	movs	r0, #32
@@ -2093,7 +2093,7 @@ Disassembly of section .text:
 1000110c:	2c00      	cmp	r4, #0
 1000110e:	d1ec      	bne.n	100010ea <main+0x12e>
 10001110:	464b      	mov	r3, r9
-10001112:	706b      	strb	r3, [r5, #1]
+10001112:	7073      	strb	r3, [r6, #1]
 10001114:	4643      	mov	r3, r8
 10001116:	b299      	uxth	r1, r3
 10001118:	1eca      	subs	r2, r1, #3
@@ -2197,10 +2197,10 @@ Disassembly of section .text:
 100011dc:	4560      	cmp	r0, ip
 100011de:	d1ce      	bne.n	1000117e <main+0x1c2>
 100011e0:	9d03      	ldr	r5, [sp, #12]
-100011e2:	7869      	ldrb	r1, [r5, #1]
-100011e4:	782b      	ldrb	r3, [r5, #0]
-100011e6:	0209      	lsls	r1, r1, #8
-100011e8:	430b      	orrs	r3, r1
+100011e2:	7833      	ldrb	r3, [r6, #0]
+100011e4:	0229      	lsls	r1, r5, #8
+100011e6:	430b      	orrs	r3, r1
+100011e8:	b29b      	uxth	r3, r3
 100011ea:	455b      	cmp	r3, fp
 100011ec:	d000      	beq.n	100011f0 <main+0x234>
 100011ee:	e11f      	b.n	10001430 <main+0x474>
@@ -2240,16 +2240,16 @@ Disassembly of section .text:
 10001232:	d1ec      	bne.n	1000120e <main+0x252>
 10001234:	23ff      	movs	r3, #255	; 0xff
 10001236:	4658      	mov	r0, fp
-10001238:	4033      	ands	r3, r6
+10001238:	402b      	ands	r3, r5
 1000123a:	2200      	movs	r2, #0
-1000123c:	786e      	ldrb	r6, [r5, #1]
+1000123c:	7875      	ldrb	r5, [r6, #1]
 1000123e:	2800      	cmp	r0, #0
 10001240:	d101      	bne.n	10001246 <main+0x28a>
 10001242:	424a      	negs	r2, r1
 10001244:	414a      	adcs	r2, r1
 10001246:	493a      	ldr	r1, [pc, #232]	; (10001330 <main+0x374>)
 10001248:	9201      	str	r2, [sp, #4]
-1000124a:	9600      	str	r6, [sp, #0]
+1000124a:	9500      	str	r5, [sp, #0]
 1000124c:	4642      	mov	r2, r8
 1000124e:	a81b      	add	r0, sp, #108	; 0x6c
 10001250:	f003 fb2e 	bl	100048b0 <__wrap_sprintf>
@@ -2264,7 +2264,7 @@ Disassembly of section .text:
 10001264:	d016      	beq.n	10001294 <main+0x2d8>
 10001266:	2300      	movs	r3, #0
 10001268:	2420      	movs	r4, #32
-1000126a:	260d      	movs	r6, #13
+1000126a:	250d      	movs	r5, #13
 1000126c:	a81b      	add	r0, sp, #108	; 0x6c
 1000126e:	2b00      	cmp	r3, #0
 10001270:	d000      	beq.n	10001274 <main+0x2b8>
@@ -2288,7 +2288,7 @@ Disassembly of section .text:
 10001294:	2274      	movs	r2, #116	; 0x74
 10001296:	2300      	movs	r3, #0
 10001298:	2420      	movs	r4, #32
-1000129a:	260d      	movs	r6, #13
+1000129a:	250d      	movs	r5, #13
 1000129c:	4825      	ldr	r0, [pc, #148]	; (10001334 <main+0x378>)
 1000129e:	2b00      	cmp	r3, #0
 100012a0:	d000      	beq.n	100012a4 <main+0x2e8>
@@ -2311,7 +2311,7 @@ Disassembly of section .text:
 100012c2:	d1ec      	bne.n	1000129e <main+0x2e2>
 100012c4:	2301      	movs	r3, #1
 100012c6:	469c      	mov	ip, r3
-100012c8:	3501      	adds	r5, #1
+100012c8:	3601      	adds	r6, #1
 100012ca:	44e0      	add	r8, ip
 100012cc:	e6e6      	b.n	1000109c <main+0xe0>
 100012ce:	698a      	ldr	r2, [r1, #24]
@@ -2400,7 +2400,7 @@ Disassembly of section .text:
 10001394:	69bb      	ldr	r3, [r7, #24]
 10001396:	421c      	tst	r4, r3
 10001398:	d1fc      	bne.n	10001394 <main+0x3d8>
-1000139a:	603e      	str	r6, [r7, #0]
+1000139a:	603d      	str	r5, [r7, #0]
 1000139c:	e76d      	b.n	1000127a <main+0x2be>
 1000139e:	69bb      	ldr	r3, [r7, #24]
 100013a0:	421c      	tst	r4, r3
@@ -2413,7 +2413,7 @@ Disassembly of section .text:
 100013ae:	69bb      	ldr	r3, [r7, #24]
 100013b0:	421c      	tst	r4, r3
 100013b2:	d1fc      	bne.n	100013ae <main+0x3f2>
-100013b4:	603e      	str	r6, [r7, #0]
+100013b4:	603d      	str	r5, [r7, #0]
 100013b6:	e778      	b.n	100012aa <main+0x2ee>
 100013b8:	69bb      	ldr	r3, [r7, #24]
 100013ba:	421c      	tst	r4, r3

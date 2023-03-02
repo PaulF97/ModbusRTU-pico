@@ -1,6 +1,7 @@
 from pymodbus.client import ModbusSerialClient
 from pymodbus.transaction import ModbusRtuFramer
 import time
+import threading
 import logging
 import serial
 
@@ -22,22 +23,30 @@ print("\033[92m-------------------client connected----------------------\033[0m"
 print("test serial connexion")
 
 
-# # while True:
-# print("before write")
-#     # sending = master.write_registers(5, "bonjour".encode(), 0x01)
-#     # sending2 = master.write_registers(0, "paul".encode(), 0x01)
+
+
+
+
+
+#  ------------------ VARIOUS TESTS ------------------
+
+
+#  ------------------ excecution time of write and read function ------------------
+# startWrite = time.time()
+# receive = master.write_registers(5, "bonjour".encode(), 0x01)
+# endWrite = time.time()
+# print(endWrite - startWrite)
+
+# startRead = time.time()
 # receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-#     # receive2 = master.read_holding_registers(address=10, count=7, slave=0x01)
+# endRead = time.time()
+# print(endRead - startRead)
 # print(receive.__dict__)
 
-startWrite = time.time()
-receive = master.write_registers(5, "bonjour".encode(), 0x01)
-endWrite = time.time()
-print(endWrite - startWrite)
+
+#  ------------------ serial ------------------
+# ser.write(b'bonjour')
+# ser.close()
+# receive = master.read_holding_registers(address=5, count=2, slave=0x01)
 
 
-startRead = time.time()
-receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-endRead = time.time()
-print(endRead - startRead)
-print(receive.__dict__)

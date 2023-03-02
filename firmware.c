@@ -57,7 +57,7 @@ void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
 void printErrorInfo(ModbusErrorInfo err);
 void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
-void determinFunctionCodeError (char *responseLib);
+void determinFunctionCodeError (char responseLib);
 
 // callback prototypes
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
@@ -148,19 +148,6 @@ void init(const uint led_used){
 
 
 void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
-    // char *data;
-    // int length;
-    // char str[50];
-	// for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
-    //     data[i] = modbusSlaveGetResponse(slave)[i];
-    //     sprintf(str, " data from lib \r\n%0.2X", data[i]);
-    //     debug(str);
-    // }
-    // for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
-    //     printf("0.2X", data[i]);
-    // }
-    // length = modbusSlaveGetResponseLength(slave); // get the length of frame
-
     for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++) {
         printf("%c", modbusSlaveGetResponse(slave)[i]);
     }
@@ -233,7 +220,7 @@ void printErrorInfo(ModbusErrorInfo err)
 		debug("FRAME IS SEND TO THE LIB \r\n");
   
     }else{
-        debug("THERE IS A PROBLEM WITH THE INIT OF\r\n");
+        debug("THERE IS A PROBLEM WITH THE INIT OF MODBUS\r\n");
 		//printf("%s: it comes from the following element : %s",
 		debug(modbusErrorSourceStr(modbusGetErrorSource(err)));
 		debug(modbusErrorStr(modbusGetErrorCode(err)));

@@ -118,10 +118,10 @@ int main() {
         // fgets(receiveBuffer, length, stdin);
         char str[50];
 
-        for(int i = 0; i<length; i++){
-            sprintf(str, "index[%d] data=%.2X\n\r",i, receiveBuffer[i]);
-            debug(str);
-        }
+        // for(int i = 0; i<i_get; i++){
+        //     sprintf(str, "index[%d] data=%.2X\n\r",i, receiveBuffer[i]);
+        //     debug(str);
+        // }
     
        // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
         printErrorInfo(error);
@@ -160,7 +160,7 @@ void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
     //     printf("0.2X", data[i]);
     // }
     // length = modbusSlaveGetResponseLength(slave); // get the length of frame
-    
+
     for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++) {
         printf("%c", modbusSlaveGetResponse(slave)[i]);
     }

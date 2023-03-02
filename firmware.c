@@ -31,7 +31,7 @@
 
 // CONSTANTS
 #define UART_ID uart1
-#define BAUDRATE 9600
+#define BAUDRATE 115200
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
 
@@ -159,22 +159,29 @@ void init(const uint led_used){
 
 
 void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
-    char *data;
-    int length;
-    char str[50];
-	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
-        data[i] = modbusSlaveGetResponse(slave)[i];
-        sprintf(str, "index [%d] : data =%.2X\n\r",i, data[i]);
-        debug(str);
-    }
-    length = modbusSlaveGetResponseLength(slave);
-    sprintf(str, "length=%d\n\r", length);
-    debug(str);
-    determinFunctionCodeError(data);
-    // // send data to the USB line
-    // for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
-    //     printf("%.2X", data[i]);
+    // char *data;
+    // int length;
+    // char str[50];
+	// for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
+    //     data[i] = modbusSlaveGetResponse(slave)[i];
+    //     sprintf(str, "index [%d] : data =%.2X\n\r",i, data[i]);
+    //     debug(str);
     // }
+    // length = modbusSlaveGetResponseLength(slave);
+    // sprintf(str, "length=%d\n\r", length);
+    // debug(str);
+    // determinFunctionCodeError(data);
+
+    // send data to the USB line
+    for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++)
+    {
+        printf("%c", modbusSlaveGetResponse(slave)[i]);
+    // printf("%c", 1);
+    // printf("%c", 2);
+    // printf("%c", 3);
+    // printf("%c", 4);
+    // printf("%c", 5);
+    }
 }
 
 /*

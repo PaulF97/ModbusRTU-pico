@@ -148,18 +148,22 @@ void init(const uint led_used){
 
 
 void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
-    char *data;
-    int length;
-    char str[50];
-	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
-        data[i] = modbusSlaveGetResponse(slave)[i];
-        sprintf(str, " data from lib \r\n%0.2X", data[i]);
-        debug(str);
+    // char *data;
+    // int length;
+    // char str[50];
+	// for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
+    //     data[i] = modbusSlaveGetResponse(slave)[i];
+    //     sprintf(str, " data from lib \r\n%0.2X", data[i]);
+    //     debug(str);
+    // }
+    // for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
+    //     printf("0.2X", data[i]);
+    // }
+    // length = modbusSlaveGetResponseLength(slave); // get the length of frame
+    
+    for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++) {
+        printf("%c", modbusSlaveGetResponse(slave)[i]);
     }
-    for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
-        printf("0.2X", data[i]);
-    }
-    length = modbusSlaveGetResponseLength(slave); // get the length of frame
 }
 
 /*

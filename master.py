@@ -18,5 +18,6 @@ print("\033[92m-------------------client connected----------------------\033[0m"
 
 print("before write")
 sending = master.write_registers(5, "bonjour".encode(), 0x01)
+receive = master.read_holding_registers(address=2, count=2, slave=0x01)
 # time.sleep(1)
 print("after write") 

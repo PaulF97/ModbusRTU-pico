@@ -4,67 +4,78 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+
+// LIBRARY
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include "pico/stdlib.h"
+#include "tusb_config.h"
 
 
+
+// MACROS
 #define LIGHTMODBUS_SLAVE_FULL
 #define LIGHTMODBUS_DEBUG
 #define LIGHTMODBUS_IMPL
-#define debug_uart(...) uart_puts(UART_ID, __VA_ARGS__);
+
+
+// LIGTHMODBUS LIB
 #include "liblightmodbus/include/lightmodbus/lightmodbus.h"
+
 
 #ifndef REG_COUNT
 #define REG_COUNT 16
 #endif
 
+
+// CONSTANTS
 #define UART_ID uart1
-#define BAUDRATE 9600
+#define BAUDRATE 115200
 #define UART_TX_PIN 4
 #define UART_RX_PIN 5
-#define MAX_LENGTH_W 23
 
 
-typedef enum StateOfSlave
-{
-	STATE_IDLE,
-	STATE_RECEIVING,
-	STATE_WAITING,
-	STATE_WAITING_INVALID,
-} StateOfSlave;
 
-uint8_t coils[REG_COUNT / 8];
-uint16_t regs[REG_COUNT];
+// DEBUG
+#define debug(...) uart_puts(UART_ID, __VA_ARGS__);
+
+// uint8_t coils[REG_COUNT / 8];
+// uint16_t regs[REG_COUNT];
+
+
+static uint16_t registers[REG_COUNT];
+static uint16_t inputRegisters[REG_COUNT];
+static uint8_t coils[REG_COUNT / 8];
+static uint8_t discreteInputs[REG_COUNT / 8];
+
+
 
 // prototype functions
 void init(const uint led_used);
 void decodeFrame(char reception[], int size, int sizeOfData);
 void hexToASCII (char usefulData[]);
-ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
-ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code);
 void printErrorInfo(ModbusErrorInfo err);
 void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
+void determinFunctionCodeError (char *responseLib);
+
+// callback prototypes
+ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
+ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code);
+
+int main() {
 
 
-
-// Enter point of the program
-// 
-int main()
-{
-
+    int length = 9;
+    int i_get=0;
     const uint LED_PIN = 25;
-    char *ptr;
     uint8_t receiveBuffer[255];
-    char betterArray[255];
+    char betterArray[length];
     uint8_t single;
-    int i_get = 0;
-    char str[100];
+    
     ModbusSlave slave;
     ModbusErrorInfo error;
-    
-    // Init of the board
+
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(LED_PIN);
@@ -72,73 +83,60 @@ int main()
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
 
-    // Debug
-    debug_uart("begining of program..\r\n");
+    debug("begining of program..\r\n");
 
-    // INIT OF LIB
+   
+
     error = modbusSlaveInit(&slave, registerCallback, exceptionCallback, modbusDefaultAllocator, modbusSlaveDefaultFunctions, modbusSlaveDefaultFunctionCount);
-    
-    single = getchar(); // wait to get a carac
+    if(!modbusIsOk(error))
+        debug("modbusSlaveInit() failed!\n\r");
 
-    // INFINIT LOOP
+
+    single = getchar();
     while(1){
-
-        debug_uart("getting into getchar.\r\n");
+        
         i_get=0;
+        debug("Reading hex data from stdin...\n\r")
         while ((single = getchar()) != EOF) {
-            debug_uart("inside.\r\n"); 
-            debug_uart("processing \r\n");
+            debug("inside.\r\n"); 
+            debug("processing \r\n");
             receiveBuffer[i_get] = single;
             error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get+1);
             if(modbusIsOk(error)){ // parse until there is a correct frame, waiting for CRC bytes..
-                debug_uart("break\r\n");
+                debug("break\r\n");
                 break;
                 i_get=0;
             }else{
-                debug_uart("checking the data... \r\n");
+                debug("checking the data... \r\n");
                 char strDebug[250];
                 sprintf(strDebug, "value of i %d, value of single %.2X value of buffer %.2X value of modbus check %d \r\n", i_get, single, receiveBuffer[i_get], modbusIsOk(error));
-                debug_uart(strDebug);
-                debug_uart("test \r\n");
+                debug(strDebug);
+                debug("test \r\n");
             }
             i_get++;
         }
+        // fgets(receiveBuffer, length, stdin);
+        char str[50];
 
-        // fgets(receiveBuffer, MAX_LENGTH_W, stdin);
-        for(int i = 0; i<MAX_LENGTH_W; i++){
-            sprintf(str, "data : %02X\r\n", receiveBuffer[i]);
-            debug_uart(str);
+        for(int i = 0; i<length; i++){
+            sprintf(str, "index[%d] data=%.2X\n\r",i, receiveBuffer[i]);
+            debug(str);
         }
-        // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
+    
+       // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
         printErrorInfo(error);
-        printAndSendFrameResponse(error, &slave);
-        debug_uart("after processing.\r\n");
-        
-
-
-
-        // // printf frame
-        // debug_uart("RTU frame before treatment by library ..\r\n");
-        // for(int i = 0; i<MAX_LENGTH_W; i++){
-        //     debug_uart("printing the frame\r\n");
-        //     if((receiveBuffer[i_get] != '\0' || receiveBuffer[i_get] != '\n')){
-        //         printf(" %02X", receiveBuffer[i]);
-        //     }else{
-        //         debug_uart("problem in receiving the frame\r\n");
-        //     }
-        // }
-        // gpio_put(LED_PIN,0);
-
-        // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get);
-        // printErrorInfo(error);
-        // debug_uart("RTU response from lib:\r\n ");
-        // printAndSendFrameResponse(error, &slave);
-
+        if(modbusIsOk(error)){
+            printAndSendFrameResponse(error, &slave);
+        }
     }
 
       return 0;
 }
+
+
+
 void init(const uint led_used){
+    //tusb_init();
     stdio_init_all();
     uart_init(UART_ID, BAUDRATE);
     gpio_init(led_used);
@@ -156,78 +154,71 @@ void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
 	for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
         data[i] = modbusSlaveGetResponse(slave)[i];
         sprintf(str, " data from lib \r\n%0.2X", data[i]);
-        debug_uart(str);
+        debug(str);
     }
     for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
         printf("0.2X", data[i]);
     }
     length = modbusSlaveGetResponseLength(slave); // get the length of frame
-
 }
 
 /*
 * goes in this callback when a frame is received
 */
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
-	char str[1024];
-    sprintf(str,"Register query:\n""\tquery: %s\n""\t type: %s\n""\t   id: %d\n""\tvalue: %c\n""\t  fun: %d\n",
+char str[1024];
+    sprintf(str,"Register query:\r\ntquery: %s\r\n type: %s\r\n  id: %d\r\nvalue: %c\r\n  fun: %d\r\n",
         modbusRegisterQueryStr(args->query),
         modbusDataTypeStr(args->type),
 		args->index,
 		args->value,
 		args->function
 	);
-    debug_uart(str);
+    debug(str);
 
-    debug_uart("inside callback\r\n");
-	switch (args->query){
-    debug_uart("inside switch\r\n");
+    debug("inside callback\n\r");
+    switch (args->query)
+    {
+        // R/W access check
+        case MODBUS_REGQ_R_CHECK:
+        case MODBUS_REGQ_W_CHECK:
+            result->exceptionCode = args->index < REG_COUNT ? MODBUS_EXCEP_NONE : MODBUS_EXCEP_ILLEGAL_ADDRESS;
+            break;
+ 
+        // Read register        
+        case MODBUS_REGQ_R:
+            switch (args->type)
+            {
+                case MODBUS_HOLDING_REGISTER: result->value = registers[args->index]; break;
+                case MODBUS_INPUT_REGISTER:   result->value = inputRegisters[args->index]; break;
+                case MODBUS_COIL:             result->value = modbusMaskRead(coils, args->index); break;
+                case MODBUS_DISCRETE_INPUT:   result->value = modbusMaskRead(discreteInputs, args->index); break;
+            }
+            break;
+ 
+        // Write register
+        case MODBUS_REGQ_W:
+            switch (args->type)
+            {
+                case MODBUS_HOLDING_REGISTER: registers[args->index] = args->value; break;
+                case MODBUS_COIL:             modbusMaskWrite(coils, args->index, args->value); break;
+                default:                      break;
+            }
+            break;
+    }
+ 
+    return MODBUS_OK;
 
-		case MODBUS_REGQ_R_CHECK:
-            debug_uart("MODBUS_REGQ_R_CHECK\r\n");
-			if (args->index < REG_COUNT)
-				result->exceptionCode = MODBUS_EXCEP_NONE;
-			else	
-				result->exceptionCode = MODBUS_EXCEP_ILLEGAL_ADDRESS;
-			break;
-		case MODBUS_REGQ_W_CHECK:
-        debug_uart("MODBUS_REGQ_W_CHECK\r\n");
-			if (args->index < REG_COUNT - 2)
-				result->exceptionCode = MODBUS_EXCEP_NONE;
-			else	
-				result->exceptionCode = MODBUS_EXCEP_SLAVE_FAILURE;
-			break;
-
-		case MODBUS_REGQ_R:
-            debug_uart("MODBUS_REGQ_R\r\n");
-			switch (args->type){
-				case MODBUS_HOLDING_REGISTER: result->value = regs[args->index]; break;
-				case MODBUS_INPUT_REGISTER: result->value = regs[args->index]; break;
-				case MODBUS_COIL: result->value = modbusMaskRead(coils, args->index); break;
-				case MODBUS_DISCRETE_INPUT: result->value = modbusMaskRead(coils, args->index); break;
-			}
-			break;
-
-
-		case MODBUS_REGQ_W:
-            debug_uart("MODBUS_REGQ_W\r\n");
-			switch (args->type)
-			{
-				case MODBUS_HOLDING_REGISTER: regs[args->index] = args->value; break;
-				case MODBUS_COIL: modbusMaskWrite(coils, args->index, args->value); break;
-				default: abort(); break;
-			}
-			break;
-		default: break;
-	}
-	return MODBUS_OK;
 }
-
+	
 ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code){
-    debug_uart("in exception callback function\r\n");
-
+    char exceptionInfo[15];
+    debug("in error register callback\r\n");
+    debug(modbusExceptionCodeStr(code)); // send the error cause to the debug
 	return MODBUS_OK;
+
 }
+
 
 /*
 * check if modbus is initialized
@@ -235,11 +226,13 @@ ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, Modbu
 void printErrorInfo(ModbusErrorInfo err)
 {
 	if (modbusIsOk(err)){
-		debug_uart("FRAME IS CORRECT\r\n");
-        return true;
+		debug("FRAME IS SEND TO THE LIB \r\n");
+  
     }else{
-        debug_uart( "THERE IS A PROBLEM WITH THE FRAME\r\n");
-        return false;
+        debug("THERE IS A PROBLEM WITH THE INIT OF\r\n");
+		//printf("%s: it comes from the following element : %s",
+		debug(modbusErrorSourceStr(modbusGetErrorSource(err)));
+		debug(modbusErrorStr(modbusGetErrorCode(err)));
     }
 }
 
@@ -267,14 +260,16 @@ void decodeFrame(char reception[], int size, int sizeOfDataFrame){
 
     for(int i = 7; i < byteCount + 7; i++){
         data[j] = reception[i];
+        //printf(" %02X", data[j]);
         j++;
     }
 
    // hexToASCII(data);
 
-    debug_uart("\n");
-    debug_uart("frame format : \n");
-    debug_uart (" slave address -- function code -- starting address -- quantity -- byte count -- data -- CRC \n");
+    //printf("\r\n");
+    //printf("frame format : \r\n");
+    //printf (" slave address -- function code -- starting address -- quantity -- byte count -- data -- CRC \r\n");
+    //printf ("The value of slave ID is %02X \r\n the value of function code is %02X \r\n the value of starting address is %02X \r\n the value of quantity is %02X \r\n  the value of byte count is %02X \r\n the CRC bytes are %02X and %02X \r\n", slaveID, functionCode, addressStart, sizeOfData, byteCount, checksum[0], checksum[1]);
     sleep_ms(2000);
 }
 
@@ -285,5 +280,12 @@ void hexToASCII(char usefulData[]){
     for(int i =0; i< strlen(usefulData); i+=2){
         sscanf(&usefulData[i], "%2x", &dataInASCII[i/2]);
     }
+
+    //printf("data in interpretable String : ");
+    for(int i = 0; i< sizeof(dataInASCII); i++){
+        //printf("%s", dataInASCII[i]);
+    }
+    //printf("\r\n");
+
 
 }

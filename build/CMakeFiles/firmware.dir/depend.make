@@ -233,6 +233,7 @@ CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pic
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio/include/pico/stdio.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_uart/include/pico/stdio_uart.h
 CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/include/pico/stdio_usb.h
+CMakeFiles/firmware.dir/firmware.c.obj: /home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/include/tusb_config.h
 CMakeFiles/firmware.dir/firmware.c.obj: generated/pico_base/pico/config_autogen.h
 CMakeFiles/firmware.dir/firmware.c.obj: generated/pico_base/pico/version.h
 

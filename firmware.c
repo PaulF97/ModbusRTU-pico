@@ -188,19 +188,15 @@ void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
 * goes in this callback when a frame is received
 */
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result){
-	//printf(
-		// "Register query:\r\n"
-		// "\tquery: %s\r\n"
-		// "\t type: %s\r\n"
-		// "\t   id: %d\r\n"
-		// "\tvalue: %c\r\n"
-		// "\t  fun: %d\r\n",
-	//	modbusRegisterQueryStr(args->query),
-	//	modbusDataTypeStr(args->type),    // Always return MODBUS_OK
-	//	args->index,
-	//	args->value,
-	//	args->function
-	//);
+char str[1024];
+    sprintf(str,"Register query:\r\ntquery: %s\r\n type: %s\r\n  id: %d\r\nvalue: %c\r\n  fun: %d\r\n",
+        modbusRegisterQueryStr(args->query),
+        modbusDataTypeStr(args->type),
+		args->index,
+		args->value,
+		args->function
+	);
+    debug(str);
 
 
     debug("inside callback\n\r");

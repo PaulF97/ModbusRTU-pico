@@ -32,16 +32,16 @@ print("test serial connexion")
 
 
 #  ------------------ excecution time of write and read function ------------------
-# startWrite = time.time()
-# receive = master.write_registers(5, "bonjour".encode(), 0x01)
-# endWrite = time.time()
-# print(endWrite - startWrite)
+startWrite = time.time()
+receive = master.write_registers(5, "bonjour".encode(), 0x01)
+endWrite = time.time()
+print(endWrite - startWrite)
 
-# startRead = time.time()
-# receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-# endRead = time.time()
-# print(endRead - startRead)
-# print(receive.__dict__)
+startRead = time.time()
+receive = master.read_holding_registers(address=5, count=2, slave=0x01)
+endRead = time.time()
+print(endRead - startRead)
+print(receive.__dict__)
 
 
 #  ------------------ serial ------------------

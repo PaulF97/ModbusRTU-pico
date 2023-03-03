@@ -58,7 +58,7 @@ void hexToASCII (char usefulData[]);
 void printErrorInfo(ModbusErrorInfo err);
 void printAndSendFrameResponse(ModbusErrorInfo err, const ModbusSlave *slave);
 void determinFunctionCodeError (char *responseLib);
-
+void activateGPIO(uint8_t * data);
 // callback prototypes
 ModbusError registerCallback(const ModbusSlave *slaveID,const ModbusRegisterCallbackArgs *args,ModbusRegisterCallbackResult *result);
 ModbusError exceptionCallback(const ModbusSlave *slave,  uint8_t function, ModbusExceptionCode code);
@@ -124,6 +124,7 @@ int main() {
         // }
     
        // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
+        activateGPIO(receiveBuffer);
         printErrorInfo(error);
         if(modbusIsOk(error)){
             printAndSendFrameResponse(error, &slave);
@@ -134,7 +135,36 @@ int main() {
 }
 
 
+void activateGPIO(uint8_t * data){
+    const uint LED_ONE = 16;
+    const uint LED_TWO = 1;
+    const uint LED_THREE = 2;
+    gpio_init(LED_ONE);
+    gpio_init(LED_TWO);
+    gpio_init(LED_THREE);
 
+    gpio_set_dir(LED_ONE, GPIO_OUT);
+    gpio_set_dir(LED_TWO, GPIO_OUT);
+    gpio_set_dir(LED_THREE, GPIO_OUT);
+    
+    if(data[3] == 0x01){
+        gpio_put(LED_ONE, 1);
+        gpio_put(LED_TWO, 0);
+        gpio_put(LED_THREE, 0);
+    } else if(data[3] == 0x03){
+        gpio_put(LED_ONE, 0);
+        gpio_put(LED_TWO, 1);
+        gpio_put(LED_THREE, 0);
+    } else if(data[3 == 0x05]){
+        gpio_put(LED_TWO, 0);
+        gpio_put(LED_ONE, 0);
+        gpio_put(LED_THREE, 1);
+    } else{
+        gpio_put(LED_TWO, 1);
+        gpio_put(LED_ONE, 1);
+        gpio_put(LED_THREE, 1); 
+    }
+}
 void init(const uint led_used){
     //tusb_init();
     stdio_init_all();

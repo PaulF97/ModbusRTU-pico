@@ -18,8 +18,12 @@ print("\033[92m-------------------client connected----------------------\033[0m"
 
 while True:
     print("before write")
-    sending = master.write_registers(5, "bonjour".encode(), 0x01)
-    sending2 = master.write_registers(0, "paul".encode(), 0x01)
-    receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-    receive2 = master.read_holding_registers(address=10, count=7, slave=0x01)
-    print(receive.__dict__)
+    sending = master.write_coil(1, 1, 0x01)
+    time.sleep(1)
+    sending2 = master.write_coil(3, 1, 0x01)
+    time.sleep(1)
+    sending2 = master.write_coil(5, 1, 0x01)
+    time.sleep(1)
+    # receive = master.read_holding_registers(address=5, count=2, slave=0x01)
+    # receive2 = master.read_holding_registers(address=10, count=7, slave=0x01)
+    # print(receive.__dict__)    time.sleep(1)

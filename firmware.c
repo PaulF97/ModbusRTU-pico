@@ -106,7 +106,7 @@ int main() {
                 debug("break\r\n");
                 break;
                 i_get=0;
-            }else{
+            }else{ // print variables in UART line
                 debug("checking the data... \r\n");
                 char strDebug[250];
                 sprintf(strDebug, "value of i %d, value of single %.2X value of buffer %.2X value of modbus check %d \r\n", i_get, single, receiveBuffer[i_get], modbusIsOk(error));

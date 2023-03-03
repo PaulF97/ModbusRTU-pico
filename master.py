@@ -22,14 +22,7 @@ print("\033[92m-------------------client connected----------------------\033[0m"
 
 print("test serial connexion")
 
-
-
-
-
-
-
 #  ------------------ VARIOUS TESTS ------------------
-
 
 #  ------------------ excecution time of write and read function ------------------
 startWrite = time.time()

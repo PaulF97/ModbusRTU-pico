@@ -1,7 +1,6 @@
 from pymodbus.client import ModbusSerialClient
 from pymodbus.transaction import ModbusRtuFramer
 import time
-import threading
 import logging
 import serial
 
@@ -12,7 +11,6 @@ log = logging.getLogger()
 log.setLevel(logging.DEBUG)
 
 master = ModbusSerialClient(framer=ModbusRtuFramer, port = '/dev/ttyACM0', stopbits=1, bytesize=8, parity='N', baudrate=115200)
-ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 
 
 
@@ -39,6 +37,7 @@ print("test serial connexion")
 
 
 #  ------------------ SERIAL ------------------
+# ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 # ser.write(b'bonjour')
 # ser.close()
 # receive = master.read_holding_registers(address=5, count=2, slave=0x01)
@@ -52,8 +51,15 @@ print("test serial connexion")
 #     time.sleep(1)
 
 
-# ------------------ SEND TO ILLEGAL ADDRESS BEFORE NORMAL FRAMES ------------------
-send = master.write_registers(5000,"test illegal address".encode(), 0x01)
-while True:
-    receive = master.write_registers(5, "bonjour".encode(), 0x01)
-    time.sleep(1)
+# # ------------------ SEND TO ILLEGAL ADDRESS BEFORE NORMAL FRAMES ------------------
+# send = master.write_registers(5000,"test illegal address".encode(), 0x01)
+# time.sleep(1)
+# receive = master.write_registers(5, "bonjour".encode(), 0x01)
+# time.sleep(1)
+
+# ------------------ SEND TO MUCH DATA BEFORE NORMAL FRAMES ------------------
+dataIsBig = "testoverflowbytes!!!!!!!!!!!"
+send = master.write_registers(1,dataIsBig.encode(), 0x01)
+time.sleep(1)
+receive = master.write_registers(5, "bonjour".encode(), 0x01)
+time.sleep(1)

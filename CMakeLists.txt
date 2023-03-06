@@ -1,6 +1,8 @@
 # cmake_minimum_required(VERSION 3.16)
 cmake_minimum_required(VERSION 3.16)
 
+set(PICO_SDK_FETCH_FROM_GIT ON)
+
 include(pico_sdk_import.cmake)
 include(liblightmodbus/lightmodbusConfig.cmake)
 project(firmware C CXX ASM)

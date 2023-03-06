@@ -39,7 +39,7 @@
 
 // DEBUG
 // #define debug(...) uart_puts(UART_ID, __VA_ARGS__);
-#define debug(...)
+#define debugTest(...)
 
 // uint8_t coils[REG_COUNT / 8];
 // uint16_t regs[REG_COUNT];

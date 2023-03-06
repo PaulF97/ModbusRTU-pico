@@ -37,3 +37,10 @@ On the UART debug window, you should see data passing threw the UART.
 
 To stop the test, just interrupt the python script. The python is the master, therefore, it will be the part managing the send of data.
 
+
+# buid and run project
+mkdir build
+cd build
+cmake ..
+make
+cp file_name.uf2 /media/<user>/RP2_RPI_boot

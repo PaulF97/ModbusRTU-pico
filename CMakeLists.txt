@@ -1,10 +1,18 @@
 # cmake_minimum_required(VERSION 3.16)
 cmake_minimum_required(VERSION 3.16)
 
+#Import pico-sdk librairie
+set(FETCHCONTENT_QUIET FALSE)
 set(PICO_SDK_FETCH_FROM_GIT ON)
+set(PICO_SDK_FETCH_FROM_GIT_PATH ${CMAKE_CURRENT_LIST_DIR}/pico-sdk)
+
+# Import liblightmodbus librairie
+set (LIBLIGHTMODBUS_FETCH_FROM_GIT ON)
+set(LIBLIGHTMODBUS_FROM_GIT_PATH ${CMAKE_CURRENT_LIST_DIR}/liblightmodbus)
 
 include(pico_sdk_import.cmake)
-include(liblightmodbus/lightmodbusConfig.cmake)
+include(liblightmodbus_import.cmake)
+include(${LIBLIGHTMODBUS_PATH}/lightmodbusConfig.cmake)
 project(firmware C CXX ASM)
 
 set(CMAKE_C_STANDARD 11)
@@ -20,7 +28,7 @@ add_executable(firmware
 )
 
 # pull in common dependencies
-target_link_libraries(firmware pico_stdlib)
+target_link_libraries(firmware pico_stdlib lightmodbus::lightmodbus)
 
 # enable usb output, disable uart output
 pico_enable_stdio_usb(firmware 1)

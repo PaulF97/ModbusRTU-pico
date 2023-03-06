@@ -38,8 +38,9 @@
 
 
 // DEBUG
+// get rid of debugs when testing code performance
 // #define debug(...) uart_puts(UART_ID, __VA_ARGS__);
-#define debugTest(...)
+#define debug(...)
 
 // uint8_t coils[REG_COUNT / 8];
 // uint16_t regs[REG_COUNT];
@@ -97,7 +98,7 @@ int main() {
     while(1){
         
         i_get=0;
-        debug("Reading hex data from stdin...\n\r")
+        debug("Reading hex data from stdin...\n\r");
         while ((single = getchar()) != EOF) {
             debug("inside.\r\n"); 
             debug("processing \r\n");

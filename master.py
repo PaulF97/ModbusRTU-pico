@@ -29,11 +29,12 @@ startWrite = time.perf_counter()
 receive = master.write_registers(5, "bonjour".encode(), 0x01)
 endWrite = time.perf_counter()
 print("time write process", endWrite - startWrite)
-
+print("write transaction per seconds", 1/float((endWrite - startWrite)))
 startRead = time.perf_counter()
 receive = master.read_holding_registers(address=5, count=2, slave=0x01)
 endRead = time.perf_counter()
 print("time read process", endRead - startRead)
+print("read transaction per seconds", 1/float((endRead - startRead)))
 print(receive.__dict__)
 
 

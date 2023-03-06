@@ -21,7 +21,7 @@
 
 
 // LIGTHMODBUS LIB
-#include "liblightmodbus/include/lightmodbus/lightmodbus.h"
+#include "lightmodbus/lightmodbus.h"
 
 
 #ifndef REG_COUNT

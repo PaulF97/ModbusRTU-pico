@@ -94,7 +94,7 @@ int main() {
 
     single = getchar();
     while(1){
-        
+                                           
         i_get=0;
         debug("Reading hex data from stdin...\n\r")
         while ((single = getchar()) != EOF) {
@@ -115,13 +115,7 @@ int main() {
             }
             i_get++;
         }
-        // fgets(receiveBuffer, length, stdin);
         char str[50];
-
-        // for(int i = 0; i<i_get; i++){
-        //     sprintf(str, "index[%d] data=%.2X\n\r",i, receiveBuffer[i]);
-        //     debug(str);
-        // }
     
        // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
         activateGPIO(receiveBuffer);

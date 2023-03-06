@@ -60,9 +60,9 @@ pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S: pico-sdk/s
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/vm/Documents/testClientServeur/firmware/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating bs2_default_padded_checksummed.S"
 	cd /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2 && /usr/bin/python3.8 /home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/boot_stage2/pad_checksum -s 0xffffffff /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S
 
-pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin: pico-sdk/src/rp2_common/boot_stage2/bs2_default.elf
+pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin: pico-sdk/src/rp2_common/boot_stage2/$(EQUALS)$(EQUALS)$(EQUALS)$(EQUALS)$(EQUALS)$(EQUALS)bs2_default.elf
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/vm/Documents/testClientServeur/firmware/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating bs2_default.bin"
-	cd /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2 && /usr/bin/arm-none-eabi-objcopy -Obinary /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.elf /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin
+	cd /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2 && /usr/bin/arm-none-eabi-objcopy -Obinary /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2/======bs2_default.elf /home/vm/Documents/testClientServeur/firmware/build/pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin
 
 bs2_default_padded_checksummed_asm: pico-sdk/src/rp2_common/boot_stage2/CMakeFiles/bs2_default_padded_checksummed_asm
 bs2_default_padded_checksummed_asm: pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S

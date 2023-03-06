@@ -10,7 +10,7 @@ fe5288dff3bcdb1877a987e6902d147c elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-pat
 4e9ead4167c624dc931f0d1be81131ee elf2uf2/src/ELF2UF2Build-stamp/ELF2UF2Build-update
 8cb0e12e7484e42b75014f9f30ff4ebe pico-sdk/src/rp2_common/boot_stage2/CMakeFiles/bs2_default_bin
 8cb0e12e7484e42b75014f9f30ff4ebe pico-sdk/src/rp2_common/boot_stage2/CMakeFiles/bs2_default_padded_checksummed_asm
-73669773b100b8ad1da72ffa3e6befbc pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin
+441a151aba37ab4c98f554edfcf7cdd1 pico-sdk/src/rp2_common/boot_stage2/bs2_default.bin
 bdb78e381f1d46ebbafadb24e32a3815 pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S
 79c79a94fd32068f7e898ca8eddc3143 pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/PioasmBuild
 91f472f3950f005997aed4d499c802da pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/PioasmBuild-complete

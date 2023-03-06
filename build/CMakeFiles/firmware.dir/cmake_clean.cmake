@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "======firmware.elf"
+  "======firmware.pdb"
   "CMakeFiles/firmware.dir/firmware.c.obj"
   "CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/audio/audio_device.c.obj"
   "CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/class/cdc/cdc_device.c.obj"
@@ -69,8 +71,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdio_usb/stdio_usb_descriptors.c.obj"
   "CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj"
   "CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj"
-  "firmware.elf"
-  "firmware.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

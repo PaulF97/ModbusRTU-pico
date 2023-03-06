@@ -25,14 +25,14 @@ print("test serial connexion")
 #  ------------------ VARIOUS TESTS ------------------
 
 #  ------------------ excecution time of write and read function ------------------
-startWrite = time.time()
+startWrite = time.perf_counter()
 receive = master.write_registers(5, "bonjour".encode(), 0x01)
-endWrite = time.time()
+endWrite = time.perf_counter()
 print("time write process", endWrite - startWrite)
 
-startRead = time.time()
+startRead = time.perf_counter()
 receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-endRead = time.time()
+endRead = time.perf_counter()
 print("time read process", endRead - startRead)
 print(receive.__dict__)
 

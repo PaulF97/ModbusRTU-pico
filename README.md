@@ -48,4 +48,5 @@ cmake ..
 
 make
 
-cp file_name.uf2 /media/<user>/RP2_RPI_boot
+cp file_name.uf2 /media/<user>/RPI-RP2/
+

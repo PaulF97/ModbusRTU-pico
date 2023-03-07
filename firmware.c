@@ -102,7 +102,7 @@ int main() {
             debug("processing \r\n");
             receiveBuffer[i_get] = single;
             error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, i_get+1);
-            if(modbusIsOk(error)){ // parse until there is a correct frame, waiting for CRC bytes..
+            if(modbusIsOk(error)){
                 debug("break\r\n");
                 break;
                 i_get=0;
@@ -115,15 +115,8 @@ int main() {
             }
             i_get++;
         }
-        // fgets(receiveBuffer, length, stdin);
         char str[50];
 
-        // for(int i = 0; i<i_get; i++){
-        //     sprintf(str, "index[%d] data=%.2X\n\r",i, receiveBuffer[i]);
-        //     debug(str);
-        // }
-    
-       // error = modbusParseRequestRTU(&slave, 0x01, receiveBuffer, length);
         printErrorInfo(error);
         if(modbusIsOk(error)){
             printAndSendFrameResponse(error, &slave);
@@ -148,18 +141,6 @@ void init(const uint led_used){
 
 
 void printAndSendFrameResponse(ModbusErrorInfo err , const ModbusSlave *slave){
-    // char *data;
-    // int length;
-    // char str[50];
-	// for (int i = 0; i < modbusSlaveGetResponseLength(slave); i++){
-    //     data[i] = modbusSlaveGetResponse(slave)[i];
-    //     sprintf(str, " data from lib \r\n%0.2X", data[i]);
-    //     debug(str);
-    // }
-    // for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++){
-    //     printf("0.2X", data[i]);
-    // }
-    // length = modbusSlaveGetResponseLength(slave); // get the length of frame
 
     for(int i = 0; i<modbusSlaveGetResponseLength(slave); i++) {
         printf("%c", modbusSlaveGetResponse(slave)[i]);

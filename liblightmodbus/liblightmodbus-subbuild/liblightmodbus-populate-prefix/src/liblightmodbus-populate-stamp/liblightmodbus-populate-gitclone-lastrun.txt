@@ -1,3 +1,0 @@
-repository='https://github.com/Jacajack/liblightmodbus.git'
-module=''
-tag='origin'

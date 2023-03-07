@@ -115,6 +115,7 @@ set(CMAKE_ASM_TARGET_INCLUDE_PATH
   "/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common"
   "/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/hw"
   "/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+  "../liblightmodbus/liblightmodbus-src/include"
   )
 set(CMAKE_DEPENDS_CHECK_C
   "/home/vm/Documents/testClientServeur/firmware/firmware.c" "/home/vm/Documents/testClientServeur/firmware/build/CMakeFiles/firmware.dir/firmware.c.obj"
@@ -273,6 +274,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common"
   "/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/hw"
   "/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+  "../liblightmodbus/liblightmodbus-src/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp" "/home/vm/Documents/testClientServeur/firmware/build/CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj"
@@ -374,6 +376,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/src/common"
   "/home/vm/Documents/testClientServeur/pico-sdk/lib/tinyusb/hw"
   "/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_common/pico_fix/rp2040_usb_device_enumeration/include"
+  "../liblightmodbus/liblightmodbus-src/include"
   )
 
 # Targets to which this target links.

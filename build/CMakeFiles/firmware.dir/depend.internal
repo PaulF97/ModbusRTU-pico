@@ -190,16 +190,20 @@ CMakeFiles/firmware.dir/home/vm/Documents/testClientServeur/pico-sdk/src/rp2_com
  generated/pico_base/pico/config_autogen.h
  generated/pico_base/pico/version.h
 CMakeFiles/firmware.dir/firmware.c.obj
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/base.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/base.impl.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/debug.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/debug.impl.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/lightmodbus.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/master.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/master.impl.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/master_func.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/master_func.impl.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/slave.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/slave.impl.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/slave_func.h
+ ../liblightmodbus/liblightmodbus-src/include/lightmodbus/slave_func.impl.h
  /home/vm/Documents/testClientServeur/firmware/firmware.c
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/base.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/base.impl.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/debug.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/debug.impl.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/lightmodbus.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave.impl.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave_func.h
- /home/vm/Documents/testClientServeur/firmware/liblightmodbus/include/lightmodbus/slave_func.impl.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/boards/include/boards/pico.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico.h
  /home/vm/Documents/testClientServeur/pico-sdk/src/common/pico_base/include/pico/assert.h

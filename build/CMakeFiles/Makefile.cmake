@@ -14,7 +14,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "elf2uf2/tmp/ELF2UF2Build-cfgcmd.txt.in"
   "pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/tmp/PioasmBuild-cfgcmd.txt.in"
-  "../liblightmodbus/lightmodbusConfig.cmake"
+  "../liblightmodbus/liblightmodbus-src/lightmodbusConfig.cmake"
+  "../liblightmodbus_import.cmake"
   "../pico_sdk_import.cmake"
   "/home/vm/Documents/testClientServeur/pico-sdk/CMakeLists.txt"
   "/home/vm/Documents/testClientServeur/pico-sdk/cmake/Platform/PICO.cmake"
@@ -134,6 +135,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/share/cmake-3.16/Modules/Compiler/GNU-CXX.cmake"
   "/usr/share/cmake-3.16/Modules/Compiler/GNU.cmake"
   "/usr/share/cmake-3.16/Modules/ExternalProject.cmake"
+  "/usr/share/cmake-3.16/Modules/FetchContent.cmake"
+  "/usr/share/cmake-3.16/Modules/FetchContent/CMakeLists.cmake.in"
   "/usr/share/cmake-3.16/Modules/FindDoxygen.cmake"
   "/usr/share/cmake-3.16/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/share/cmake-3.16/Modules/FindPackageMessage.cmake"
@@ -150,6 +153,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "../liblightmodbus/liblightmodbus-subbuild/CMakeLists.txt"
   "elf2uf2/tmp/ELF2UF2Build-cfgcmd.txt"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   "pico-sdk/CMakeFiles/CMakeDirectoryInformation.cmake"

@@ -134,18 +134,24 @@ void activateGPIO(uint8_t * data, ModbusErrorInfo err){
     const uint LED_ONE = 16;
     const uint LED_TWO = 1;
     const uint LED_THREE = 2;
+    const uint LED_ERROR = 18;
+
     gpio_init(LED_ONE);
     gpio_init(LED_TWO);
     gpio_init(LED_THREE);
+    gpio_init(LED_ERROR);
+
 
     gpio_set_dir(LED_ONE, GPIO_OUT);
     gpio_set_dir(LED_TWO, GPIO_OUT);
     gpio_set_dir(LED_THREE, GPIO_OUT);
+    gpio_set_dir(LED_ERROR, GPIO_OUT);
     
     if(data[3] == 0x01 && modbusIsOk(err)){
         gpio_put(LED_ONE, 1);
         gpio_put(LED_TWO, 0);
         gpio_put(LED_THREE, 0);
+        gpio_put(LED_ERROR, 0);
     } else if(data[3] == 0x03 && modbusIsOk(err)){
         gpio_put(LED_ONE, 0);
         gpio_put(LED_TWO, 1);
@@ -154,7 +160,12 @@ void activateGPIO(uint8_t * data, ModbusErrorInfo err){
         gpio_put(LED_TWO, 0);
         gpio_put(LED_ONE, 0);
         gpio_put(LED_THREE, 1);
-    } else{
+    } else if(!modbusIsOk(err)){
+        gpio_put(LED_ONE, 0);
+        gpio_put(LED_TWO, 0);
+        gpio_put(LED_THREE, 0);
+        gpio_put(LED_ERROR, 1);
+    }else{
         gpio_put(LED_TWO, 1);
         gpio_put(LED_ONE, 1);
         gpio_put(LED_THREE, 1); 

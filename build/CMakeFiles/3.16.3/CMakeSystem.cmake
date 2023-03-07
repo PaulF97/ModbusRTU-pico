@@ -1,9 +1,9 @@
-set(CMAKE_HOST_SYSTEM "Linux-5.15.0-60-generic")
+set(CMAKE_HOST_SYSTEM "Linux-5.15.0-67-generic")
 set(CMAKE_HOST_SYSTEM_NAME "Linux")
-set(CMAKE_HOST_SYSTEM_VERSION "5.15.0-60-generic")
+set(CMAKE_HOST_SYSTEM_VERSION "5.15.0-67-generic")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/home/vm/Documents/testClientServeur/pico-sdk/cmake/preload/toolchains/pico_arm_gcc.cmake")
+include("/home/vm/Documents/pico/pico-sdk/cmake/preload/toolchains/pico_arm_gcc.cmake")
 
 set(CMAKE_SYSTEM "PICO")
 set(CMAKE_SYSTEM_NAME "PICO")

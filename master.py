@@ -23,17 +23,17 @@ print("test serial connexion")
 #  ------------------ VARIOUS TESTS ------------------
 
 #  ------------------ excecution time of write and read function ------------------
-# startWrite = time.perf_counter()
-# receive = master.write_registers(5, "bonjour".encode(), 0x01)
-# endWrite = time.perf_counter()
-# print("time write process", endWrite - startWrite)
-# print("write transaction per seconds", 1/float((endWrite - startWrite)))
-# startRead = time.perf_counter()
-# receive = master.read_holding_registers(address=5, count=2, slave=0x01)
-# endRead = time.perf_counter()
-# print("time read process", endRead - startRead)
-# print("read transaction per seconds", 1/float((endRead - startRead)))
-# print(receive.__dict__)
+startWrite = time.perf_counter()
+receive = master.write_registers(5, "bonjour".encode(), 0x01)
+endWrite = time.perf_counter()
+print("time write process", endWrite - startWrite)
+print("write transaction per seconds", 1/float((endWrite - startWrite)))
+startRead = time.perf_counter()
+receive = master.read_holding_registers(address=5, count=2, slave=0x01)
+endRead = time.perf_counter()
+print("time read process", endRead - startRead)
+print("read transaction per seconds", 1/float((endRead - startRead)))
+print(receive.__dict__)
 
 
 #  ------------------ SERIAL ------------------
@@ -58,8 +58,8 @@ print("test serial connexion")
 # time.sleep(1)
 
 # ------------------ SEND TO MUCH DATA BEFORE NORMAL FRAMES ------------------
-dataIsBig = "testoverflowbytes!!!!!!!!!!!"
-send = master.write_registers(1,dataIsBig.encode(), 0x01)
-time.sleep(1)
-receive = master.write_registers(5, "bonjour".encode(), 0x01)
-time.sleep(1)
+# dataIsBig = "testoverflowbytes!!!!!!!!!!!"
+# send = master.write_registers(1,dataIsBig.encode(), 0x01)
+# time.sleep(1)
+# receive = master.write_registers(5, "bonjour".encode(), 0x01)
+# time.sleep(1)

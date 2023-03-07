@@ -50,3 +50,12 @@ make
 
 cp file_name.uf2 /media/<user>/RPI-RP2/
 
+
+# Before push into remote
+
+delete build and lib files
+
+rm -rf buil 
+
+rm -rf liblighmodbus
+

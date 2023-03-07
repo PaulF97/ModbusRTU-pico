@@ -59,3 +59,6 @@ rm -rf buil
 
 rm -rf liblighmodbus
 
+git rm -rf build
+
+git rm -rf liblighmodbus

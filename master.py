@@ -15,7 +15,6 @@ print(master)
 print("\033[92m-------------------client connected----------------------\033[0m")
 
 
-
 while True:
     print("before write")
     sending = master.write_registers(5, "bonjour".encode(), 0x01)
